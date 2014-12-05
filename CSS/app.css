@@ -1,0 +1,141 @@
+﻿.field-validation-error {
+    display: block;
+  padding: 0.575rem 0.5625rem 0.5625rem;
+  margin-top: 0px;
+  margin-left: 1rem;
+  font-size: 0.75rem;
+  font-weight: normal;
+  font-style: italic;
+  background: #f04124;
+  color: white; 
+
+}
+
+.cheaders{
+  color: #FF3300;
+  margin:auto;
+  padding: 1rem 1rem 1rem;
+}
+
+.cfooter {
+    padding-top: 3rem;
+    
+}
+
+.pPanel {
+    font-size: 0.85rem;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.top-bar {
+    background-color: #2f6577;
+}
+
+.top-bar-section li:not(.has-form) a:not(.button){
+    background: #2f6577;
+}
+
+.top-bar-section li:not(.has-form) a:not(.button):hover {
+    background: #107293;
+}
+
+.cheaders{
+  color: #FF3300;
+  padding-left: 0rem;
+  padding-bottom: 0rem;
+}
+.chr{
+  margin:auto;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+.customList{
+  margin:auto;
+  padding-left:2.5%;
+}
+
+.hNlabels {
+    font-size: 0.875rem;
+    color: #4d4d4d;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.hLabels {
+    font-weight: bold;
+    color: #2b80db;
+}
+
+.comSpan {
+    color: #33CC33;
+}
+.comSpanN {
+    color: #f40e0e;
+}
+
+table tr th {
+    padding: 0.5625rem 0.625rem;
+    font-size: 0.875rem;
+    color: white;
+    text-align: left; 
+    background: #2F6577;
+    
+}
+
+.customButton {
+    margin-left: 1rem;
+    padding-bottom: 0.6rem;
+    padding-top: 0.6rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.customChart {
+    margin-left: 0rem;
+}
+.submenus{
+  color: #33CC33;
+}
+
+p{
+  padding-left:0.5rem; 
+  padding-top:0.2rem;
+}
+
+.customPafterImg{
+  padding-left:0.5rem; 
+  padding-top:0.7rem;
+}
+
+img{
+  border-style: solid;
+  border-color: black;
+  border-width: 0.1rem;
+}
+
+.imgLeftNote{
+  font-style: italic; 
+  font-size:0.8rem; 
+  float:left;
+}
+.imgRightNote{
+  font-style: italic; 
+  font-size:0.8rem; 
+  float:right;
+}
+.imgNote{
+  font-style: italic; 
+  font-size:0.8rem; 
+}
+.reference{
+  vertical-align:super; 
+  font-style: italic; 
+  font-size:0.8rem;
+}
+.aReference{
+  vertical-align:super;
+}
+
+
+/*top-bar-section li.active:not(.has-form) a:not(.button)*/
