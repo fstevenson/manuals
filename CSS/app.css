@@ -108,7 +108,7 @@ p{
   padding-top:0.7rem;
 }
 
-img{
+img, video{
   border-style: solid;
   border-color: black;
   border-width: 0.1rem;
@@ -137,5 +137,17 @@ img{
   vertical-align:super;
 }
 
+.custom-flex-video video {
+    position: absolute;
+    top: 0;
+    left: 0; 
+    width: 50%;
+    height: 50%;
+  }
+
+  video {
+  width: 90%   !important;
+  height: auto   !important;
+}
 
 /*top-bar-section li.active:not(.has-form) a:not(.button)*/
