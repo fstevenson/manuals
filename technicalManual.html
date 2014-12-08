@@ -140,6 +140,7 @@
             </section>
             <!-- charts design -->
             <section class="small-12 large-12 columns">
+            <a id="chartsFlow"></a>
               <div class="small-12 large-3 panel columns">
                 <p>The diagram from the right shows the interaction among the components when a wants to generate the charts on the system (<a id="charts_design_show">show</a> | <a id="charts_design_hide">hide</a>). It is assumed that the user is already logged into the system and it has access to the module.</p>
               </div>
@@ -252,10 +253,20 @@
           <!--Authentication -->
           <div id="authentication" class="small-12 large-12 columns">
             <a id="authentication"></a>
-            <h4 data-magellan-destination="authentication" class="cheaders">7. Authentication</h4>
+            <h4 data-magellan-destination="authentication" class="cheaders">7. Authorization</h4>
             <hr class="chr">
             <div class="panel callout radius">
-              <p>An explanation and features of each module from the system are going to be presented in this section.</p>
+              <p>The user must have authorization to access the modules, by defaut it can only access to registration call. <span class="important">AuthorizeCore: </span> it is an ovverriden method in order to check wheter the user is being authorized. Has two parameters:</p>
+              <ul>
+                <li>HtttpContext: It is for collecting an information about each single request. It returns false if the user is not authorized.</li>
+                <li>OnAuthorization: It is an overriden method in order to redirect the user to Unauthorized page. According to (MSDN), this method is called "when a process requests authorization"</li>
+              </ul>
+            </div>
+            <div class="small-12 large-6 panel columns">
+              <img src="images/Authorize.jpg" alt="authorize"><br />
+              <span class="imgNote">[Image 11]. Validation message.</span>
+              <br />
+              <p><span class="important">Note: </span> the code can be found in the controller "AuthorizeAttribute" can be found at: /controllers/AuthorizeAttribute.cs.</p>
             </div>
           </div>
           <!-- end authentication -->
@@ -270,10 +281,27 @@
             <div class="small-12 large-12 columns"> <!-- register -->
               <h5 class="cheaders">8.1 Register</h5>
               <hr class="chr">
+              <div class="panel callout radius">
+                <p>In case that the information has been entered correctly, the data will be stored in database by a WebSecurity.CreateUserAndAccount(model.UserName, model.Password) method and direct the user to Registration Page for call. Another important elements are:</p>
+                <ul>
+                  <li>[AllowAnnonymous]: It is an attribute</li>
+                  <li>[ValidateAntiForgeryToken]: It is an attribute used to "prevent forgery of a request"</li>
+                  <li>ModelState.IsValid: ModelSate "represents the state of an attempt to bind a poster form to an action method, which includes validation information. Where isValid gets a value determining if instance of this model-stat dictiornary is valid". For example, passing a string for a parameter which should be an integer.
+                </ul>
+              </div>
+              <div class="small-12 large-6 panel columns">
+                <img src="images/RegistrationCode.jpg" alt="authorize"><br />
+                <span class="imgNote">[Image 12]. Registration Code.</span>
+              </div>
+              <p><span class="important">Note: </span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, the model "AccountModels.cs" found at /Models/AccountModels and the view "register.cshtml" found at: /Views/Account/register.cshtml.</p>
             </div>
             <div class="small-12 large-12 columns"> <!-- login -->
               <h5 class="cheaders">8.2 Login</h5>
               <hr class="chr">
+              <div class="panel callout radius">
+                <p>MISSING</p>
+              </div>
+              <p><span class="important">MISSING Note: </span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, the model "AccountModels.cs" found at /Models/AccountModels and the view "register.cshtml" found at: /Views/Account/register.cshtml.</p>
             </div>
             <div class="small-12 large-12 columns"> <!-- register a call -->
               <h5 class="cheaders">8.3 Register a call</h5>
@@ -301,8 +329,9 @@ if ($("form").valid()) {
 }) 
 ...
 </pre>      
+                <br />
+                <span class="imgNote">1. First step, data serialize and send to controller.</span>
               </div>
-              <span class="imgNote">1. First step, data serialize and send to controller.</span>
                 </div> <!-- registration .js -->
                 <div class="small-12 large-6 columns">
                   <div class="panel">
@@ -318,9 +347,9 @@ if ($("form").valid()) {
 ...
 }
 ...
-</pre>      
+</pre>          <br />
+                <span class="imgNote">3. Third step, the javascript receives the data from the controller and displays the message.</span>
               </div>
-              <span class="imgNote">3. Third step, the javascript receives the data from the controller and displays the message.</span>
                 </div> <!-- registration .js -->
 
                 <div class="small-12 large-12 columns">
@@ -372,8 +401,9 @@ if (ModelState.IsValid)
 }
 return Json(false);
 </pre>
+                <br />
+                <span class="imgNote">2. Second step, response in JSON format from the controller.</span>
               </div>
-              <span class="imgNote">2. Second step, response in JSON format from the controller.</span>
                 </div> <!-- controller -->
               </div> <!-- register a call submit -->
               <div class="small-12 large-12 columns"> <!-- Register a call - phone number - ajax/json -->
@@ -393,9 +423,10 @@ $.ajax({
     ContentType: 'application/json'
 })
 ...
-</pre>      
-                </div>
+</pre>        
+                  <br />
                   <span class="imgNote">1. First step, get phone number value and communicate with the controller.</span>
+                </div>
               </div> <!-- registration .js -->
               <div class="small-12 large-6 columns">
                   <div class="panel">
@@ -413,8 +444,9 @@ if (data !== false) {
     $('input#LastName').val(data.LastName);
 ...
 </pre>      
-                </div>
+                  <br />
                   <span class="imgNote">3. Third step, fill in the fields.</span>
+                </div>
               </div> <!-- registration .js -->
               <div class="small-12 large-12 columns">
                 <div class="panel">
@@ -439,8 +471,9 @@ public JsonResult Complete(Models.Registration registration)
     return Json(false);
 }
 </pre>
+                <br />
+                <span class="imgNote">2. Second step, the controller modifies the received model.</span>
               </div>
-              <span class="imgNote">2. Second step, the controller modifies the received model.</span>
             </div>
               </div> <!-- phone number typed -->
               <div class="small-12 large-12 columns"> <!-- Register a call phone typed - ajax/json -->
@@ -461,8 +494,9 @@ public JsonResult Complete(Models.Registration registration)
 })
 ...
 </pre>      
-                </div>
+                  <br />
                   <span class="imgNote">1. First step, get phone number value and communicate with the controller.</span>
+                </div>
               </div> <!-- registration .js -->
               <div class="small-12 large-12 columns">
                 <div class="panel">
@@ -500,9 +534,10 @@ if (aux)
     else
         return Json(false);
 ...
-</pre>
+</pre>  
+                <br />
+                <span class="imgNote">2. Second step, the controller modifies the received model.</span>
               </div>
-              <span class="imgNote">2. Second step, the controller modifies the received model.</span>
             </div>
             <div class="small-12 large-6 columns">
                   <div class="panel">
@@ -528,19 +563,21 @@ else {
     $('div#messages').text("The user has a reputation of negative comments").fadeOut(3000);
 ...
 </pre>      
-                </div>
+                  <br />
                   <span class="imgNote">3. Third step part 1, show message regard the reputation.</span>
+                </div>
               </div> <!-- registration .js -->
               <div class="small-12 large-6 columns">
                   <div class="panel">
                     <span class="important">Registration.js</span>. Part 2, create table with historical data.
                     <img src="images/phone_historical.png" alt="code"><br />    
-                    <span class="imgNote">3. Third step part 2, historical data.</span>
+                    <span class="imgNote">4. Third step part 2, historical data.</span>
                   </div>
                   
               </div> <!-- registration .js -->
               </div> <!-- phone number historical typed -->
               <div class="small-12 large-12 columns">
+                <hr class="chr">
                 <p><span class="important">Note: </span> the javascript file "Registration.js" can be found at /Scripts/Custom/registration.js, the controller "CallController" can be found at: /controllers/CallController.cs, model used "Registration" found at: /Models/Registration.cs, View used "Register.cshtml" found at: /Views/Call/Register.cshtml</p>
               </div>
             </div> <!-- register a call -->
@@ -564,8 +601,9 @@ $.ajax({
 })
 ...
 </pre>      
-                </div>
+                  <br />
                   <span class="imgNote">Use ajax to communicate with the controller.</span>
+                </div>
               </div> <!-- search .js -->
               <div class="small-12 large-6 columns">
                 <div class="panel">
@@ -646,8 +684,9 @@ $('div#messages').text(data.errorMessage).fadeOut(4000);
 $('input[type="submit"]').prop('disabled', false);
 ...
 </pre>      
+                  <br />
+                  <span class="imgNote">Code to generate/show the messages.</span>
                 </div>
-                  <span class="imgNote">Messages that can be shown.</span>
               </div> <!-- search .js -->
               <div class="small-12 large-6 columns">
                 <div class="panel">
@@ -656,10 +695,348 @@ $('input[type="submit"]').prop('disabled', false);
                   <span class="imgNote">Code to generate results table.</span>
                 </div>
               </div> <!-- search .js -->
-
-
+              <!-- NOTE -->
+              <div class="small-12 large-12 columns">
+                <hr class="chr">
+                <p><span class="important">Note: </span> the javascript file "search.js" can be found at /Scripts/Custom/search.js, the controller "PersonController" can be found at: /controllers/PersonController.cs, model used "Search" found at: /Models/Search.cs, View used "search.cshtml" found at: /Views/Person/search.cshtml</p>
+              </div>
+              <!-- 8.4.1 check history -->
+               <div class="small-12 large-12 columns"> 
+                <h6 class="cheaders">8.4.1 Search a person - check history</h6>
+                <hr class="chr">
+                <p class="panel callout radius">In the past section a table was generated with the data from the database, in the table a link is created to check the history of one person.</p>
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
+                    <span class="important">PersonController - Details action</span>. Receives the ID of a user.
+  <pre>
+[HttpGet]
+public ActionResult Details(long id)
+{
+    var checkPerson = db.Persons.Any(p => p.PersonId.Equals(id));
+    if (checkPerson)
+    {
+        Person p = db.Persons.Single(per => per.PersonId == id);
+        var calls = (from call in db.Calls
+                    join categories in db.Categories on call.CategoryId equals categories.CategoryId
+                    join person in db.Persons on call.Person.PersonId equals person.PersonId
+                    where call.Person.PersonId == id
+                    orderby call.TimeCall descending
+                    select new { call.Program, categories.CategoryName, call.Comments, call.Positive, call.TimeCall});
+        List<Historic> lCall = new List<Historic>();
+        foreach (var c in calls)
+        {
+            Historic call = new Historic(c.Program, c.CategoryName, c.Comments, c.Positive, c.TimeCall.ToString());
+            lCall.Add(call);
+        }
+        Details details = new Details(lCall, p);
+        return View(details);
+    }
+    return View();
+}
+  </pre>      
+                    <br/>
+                    <span class="imgNote">Action code in the controller.</span>
+                  </div> <!--panel-->
+                </div> <!-- controller -->
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
+                    <span class="important">View: Details.cshtml</span>. Display general information about the user (personal information) and all the calls registered.
+                    ...
+                    <img src="images/general_info.png" alt="code"><br />
+                    <br />...
+                    <img src="images/calls_table.png" alt="code"><br />
+                    ...<br />
+                    <span class="imgNote">Code in the view display information.</span>     
+                  </div> <!--panel-->
+                </div> <!-- View -->
+              </div> <!-- end 8.4.1 check history -->
+               <!-- NOTE -->
+              <div class="small-12 large-12 columns">
+                <hr class="chr">
+                <p><span class="important">Note: </span> the controller "PersonController" (details action) can be found at: /controllers/PersonController.cs, model used "Details" found at: /Models/Details.cs, View used "details.cshtml" found at: /Views/Person/details.cshtml</p>
+              </div>
             </div><!-- end search -->
+            <!-- Charts -->
+            <div class="small-12 large-12 columns"> 
+              <h5 class="cheaders">8.5 Charts</h5>
+              <hr class="chr">
+              <p class="panel callout radius">The main flow of actions for this module can be found in the diagram <a href="#chartsFlow">charts</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve calls information for the specified range of dates, generation of charts. Use of JQuery-UI to use calendar for the dates.</p>
+              <p><span class="important">Note: </span> it is required to have highcharts.js script in order to generate the charts.</p>
+              <div class="small-12 large-12 columns">
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
+                    <span class="important">JQuery-UI calendar</span>. JQuery.cs, JQuery-UI.js and JQuery-ui-*.css are required.
+  <pre>
+$(function () {
+  $("#FromDate").datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function (selectedDate) {
+          $("#ToDate").datepicker("option", "minDate", selectedDate);
+      }
+  });
+  $("#ToDate").datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function (selectedDate) {
+          $("#FromDate").datepicker("option", "maxDate", selectedDate);
+      }
+  });
+});
+  </pre>      
+                    <br/>
+                    <span class="imgNote">JQuery - UI calendar.</span>
+                  </div> <!--panel-->
+                </div> <!-- calendar -->
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
+                    <span class="important">Charts.js</span>. Communicates with the controller via Ajax.
+  <pre>
+$.ajax({
+    type: "POST",
+    url: '/Chart/GetInfo',
+    dataType: 'json',
+    ContentType: 'application/json',
+    data: $("form").serialize()
+})
+  </pre>      
+                    <br/>
+                    <span class="imgNote">Charts script - ajax.</span>
+                  </div> <!--panel-->
+                </div> <!-- charts -->
+              </div><!-- row-->
+             <div class="small-12 large-12 columns">
+              <div class="small-12 large-6 columns">
+                  <div class="panel">
+                    <span class="important">ChartController - Get info action</span>. Retrieves calls information between the range of dates and sends the data in JSON format.
+  <pre>
+[HttpPost]
+public JsonResult GetInfo(Models.Chart charts)
+{
+    if (ModelState.IsValid)
+    {
+        DateTime fromDate = Convert.ToDateTime(charts.FromDate);
+        DateTime toDate = Convert.ToDateTime(charts.ToDate);
+
+        var checkCall = db.Calls.Any(c => c.TimeCall >= fromDate && c.TimeCall <= toDate);
+        if (checkCall)
+        {
+            var calls = (from call in db.Calls
+                         join categories in db.Categories on call.CategoryId equals categories.CategoryId
+                         join person in db.Persons on call.Person.PersonId equals person.PersonId
+                         where call.TimeCall >= fromDate && call.TimeCall <= toDate
+                         orderby call.TimeCall ascending
+                         select new { call.Program, categories.CategoryName, call.Comments, call.Positive, call.TimeCall, call.Person.PersonId });
+ ...
+ return Json(new { success = true, FromDate = charts.FromDate, ToDate = charts.ToDate, CategoryNames = lCategories, CategoryCount = iCategories, Dates = lDates, DatesCount = iDates, People = iPeople, Positive = nPositive, Negative = nNegative, PMorning = pMorning, PAfternoon = pAfternoon, TotalCalls = totalCalls });
+}
+else
+    return Json(new { success = false, errorMessage = "No calls registered between " + charts.FromDate + " to " + charts.ToDate});
+...
+  </pre>      
+                    <br/>
+                    <span class="imgNote">Get info from the controller/action.</span>
+                  </div> <!--panel-->
+                </div> <!-- controller -->
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
+                    <span class="important">charts.js</span>. Show message, create section of general information and manipulate data to create charts.
+  <pre class="sPerson2">
+$('div#messages').attr('class', 'alert-box success radius');
+$('div#messages').show();
+$('div#messages').text("Calls found between " + data.FromDate + " to " + data.ToDate).fadeOut(4000);
+...
+</pre>
+                        <img src="images/charts_code.png" alt="code"><br />
+<pre>
+series: [{
+    name: 'Calls on the day',
+    data: nCalls
+}]
+...
+  </pre>      
+                    <br/>
+                    <span class="imgNote">Display message, general information and generate charts.</span>
+                  </div> <!--panel-->
+                </div> <!-- charts -->
+             </div><!-- row-->
+            </div> <!-- 8.5 -->
+            <div class="small-12 large-12 columns">
+              <hr class="chr">
+              <p><span class="important">Note: </span> the controller "ChartsController" (action: getInfo) can be found at: /controllers/ChartController.cs, model used "Chart" found at: /Models/Chart.cs, View used "index.cshtml" found at: /Views/Chart/index.cshtml</p>
+            </div>
+            <div class="small-12 large-12 columns"> <!-- control panel -->
+              <h5 class="cheaders">8.6 Control Panel</h5>
+              <hr class="chr">
+              <p class="panel callout radius">MISSING The main flow of actions for this module can be found in the diagram <a href="#chartsFlow">charts</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve calls information for the specified range of dates, generation of charts. Use of JQuery-UI to use calendar for the dates.</p>
+              <!-- 8.4.1 check history -->
+               <div class="small-12 large-12 columns"> 
+                <h6 class="cheaders">8.6.1 Control Panel - List of Roles</h6>
+                <hr class="chr">
+                  <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">View Board.cshtml</span>. To obtain the roles Ajax is used.
+      <pre>
+    @Ajax.ActionLink("List of Roles", "UserRole", new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "divHi",
+        InsertionMode = InsertionMode.Replace
+    })
+      </pre>      
+                        <br/>
+                        <span class="imgNote">Ajax call.</span>
+                      </div> <!--panel-->
+                    </div> <!-- calendar -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Account Controller</span>. Obtain roles and display.
+      <pre>
+    [AuthorizeRedirect(Roles = "Admin")]
+    public PartialViewResult UserRole()
+    {
+        var roles = Roles.GetAllRoles();
+        return PartialView("_IndexOfRoles", roles);
+    }
+      </pre>      
+                        <br/>
+                        <span class="imgNote">Roles from the controller.</span>
+                      </div> <!--panel-->
+                    </div> <!-- charts -->
+                  </div><!-- row-->
+                </div>
+                <div class="small-12 large-12 columns"> 
+                  <h6 class="cheaders">8.6.2 Control Panel - Add roles</h6>
+                  <hr class="chr">
+                  <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">AccountController (action: RoleAddToUser)</span>. Link a user to a role.
+<pre>
+[AuthorizeRedirect(Roles = "Admin")]
+[HttpPost]
+[ValidateAntiForgeryToken]
+public ActionResult RoleAddToUser(string RoleName, string UserName)
+{
+    if (Roles.IsUserInRole(UserName, RoleName))
+    {
+        ViewBag.ResultMessage = "This user already has the role specified !";
+    }
+    else
+    {
+        Roles.AddUserToRole(UserName, RoleName);
+        ViewBag.ResultMessage = "Username added to the role succesfully !";
+    }
+
+    SelectList list = new SelectList(Roles.GetAllRoles());
+    ViewBag.Roles = list;
+    return View();
+}
+</pre>      
+                        <br/>
+                        <span class="imgNote">Add role to a user.</span>
+                      </div> <!--panel-->
+                    </div> <!-- item -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Add role to user</span>.
+                         <img src="images/hasArole.jpg" alt="code"><br /> 
+                        <span class="imgNote">Add role.</span>
+                      </div> <!--panel-->
+                    </div> <!-- charts -->
+                  </div><!-- row-->
+                </div><!--8.6.2 -->
+                <div class="small-12 large-12 columns"> 
+                  <h6 class="cheaders">8.6.3 Control Panel - Get roles</h6>
+                  <hr class="chr">
+                  <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">AccountController (action: GetRoles)</span>. Get roles of a user.
+<pre>
+[AuthorizeRedirect(Roles = "Admin")]
+[HttpPost]
+[ValidateAntiForgeryToken]
+public ActionResult GetRoles(string UserName)
+{
+    if (!string.IsNullOrWhiteSpace(UserName))
+    {
+        ViewBag.RolesForThisUser = Roles.GetRolesForUser(UserName);
+        SelectList list = new SelectList(Roles.GetAllRoles());
+        ViewBag.Roles = list;
+    }
+    return View("RoleAddToUser");
+}
+</pre>      
+                        <br/>
+                        <span class="imgNote">Get roles.</span>
+                      </div> <!--panel-->
+                    </div> <!-- item -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Get roles</span>.<br />
+                         <img src="images/getRoles.jpg" alt="code"><br /> 
+                        <span class="imgNote">Get roles.</span>
+                      </div> <!--panel-->
+                    </div> <!-- charts -->
+                  </div><!-- row-->
+                </div><!--8.6.3-->
+                <div class="small-12 large-12 columns"> 
+                  <h6 class="cheaders">8.6.4 Control Panel - Delete roles</h6>
+                  <hr class="chr">
+                  <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">AccountController (action: DeleteRoleForUser)</span>. Delete roles for a user.
+<pre>
+[HttpPost]
+[AuthorizeRedirect(Roles = "Admin")]
+[ValidateAntiForgeryToken]
+public ActionResult DeleteRoleForUser(string UserName, string RoleName)
+{
+    if (Roles.IsUserInRole(UserName, RoleName))
+    {
+        Roles.RemoveUserFromRole(UserName, RoleName);
+        ViewBag.ResultMessage = "Role has been removed from the user successfully !";
+    }
+    else
+    {
+        ViewBag.ResultMessage = "This user doesn't have a selected role.";
+    }
+    ViewBag.RolesForThisUser = Roles.GetRolesForUser(UserName);
+    SelectList list = new SelectList(Roles.GetAllRoles());
+    ViewBag.Roles = list;
+
+    return View("RoleAddToUser");
+}
+</pre>      
+                        <br/>
+                        <span class="imgNote">Delete role to a user.</span>
+                      </div> <!--panel-->
+                    </div> <!-- item -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Delete role to user</span>.<br />
+                         <img src="images/DeleteRole1.jpg" alt="code"><br /> 
+                        <span class="imgNote">Delete role.</span>
+                      </div> <!--panel-->
+                    </div> <!-- charts -->
+                  </div><!-- row-->
+                </div><!--8.6.4-->
+            </div>
           </div><!-- end implementation -->
+          <div class="small-12 large-12 columns"> <!-- control panel -->
+              <h5 class="cheaders">9. Discussion</h5>
+              <hr class="chr">
+          </div>
+          <div class="small-12 large-12 columns"> <!-- control panel -->
+              <h5 class="cheaders">10. References</h5>
+              <hr class="chr">
+              <blockquote>Example</blockquote>
+          </div>
         </section>
 
         <footer class="large-12 columns cfooter">
