@@ -273,7 +273,7 @@
                 <p>After the user submits the form the first action from the system is to validate the fields, if all the fields are correct the data is going to be serialize in JSON format and send to the controller, the class that executes this action is Registration.js <span class="imgNote">(code in "/Scripts/Custom/registration.js")</span>, as shown below:</p>
                 <div class="small-12 large-4 panel columns">
                   <span class="important">Registration.js</span>
-<pre style="font-size:0.8rem">
+<pre>
 if ($("form").valid()) {   
   // Disable the button
   $('input[type="submit"]').prop('disabled', true);
@@ -286,7 +286,57 @@ if ($("form").valid()) {
 }) 
 ...
 </pre>
-                </div>
+                </div> <!-- registration .js -->
+                <div class="small-12 large-8 panel columns">
+                  <span class="important">CallController.cs</span>
+                  The action in the controller will return JSON. If model is valid and the person who called is already registered on the database, his address is going to be update it. Otherwise, register a new person and a new call.
+<pre style="font-size:0.8rem">
+[HttpPost]
+public JsonResult Register(Models.Registration registration)
+</pre>
+<pre>
+if (ModelState.IsValid)
+{
+...
+  var aux = (from ca in db.Categories
+             where ca.CategoryName.Equals(registration.Categories)
+             select ca).Single();
+  Person person = new Person(registration.PhoneNumber, registration.Name, registration.LastName, registration.Address1, registration.Address2, registration.PostCode);
+  // Check if a person already exists on the table with that phone number.
+  var checkPerson = db.Persons.Any(p => p.PhoneNumber == person.PhoneNumber);
+  var userName = WebSecurity.CurrentUserName;
+  var checkEmployee = db.Employees.Any(e => e.Name == userName);
+  Employee tmpEmployee = null;
+
+  if(checkEmployee)
+      tmpEmployee = db.Employees.Single(e => e.Name == userName);
+
+  if (checkPerson && checkEmployee)
+  {
+      Person tmpPerson = db.Persons.Single(p => p.PhoneNumber == person.PhoneNumber)
+      if (TryUpdateModel(tmpPerson, new string[] { "Name", "LastName", "Address1", "Address2", "PostCode" }))
+      {
+        ...
+        db.Entry(tmpPerson).State = EntityState.Modified;
+        db.SaveChanges();
+        Call call = new Call(aux.CategoryId, tmpEmployee.EmployeeId, registration.Program, registration.Comments, registration.Positive, tmpPerson);
+        db.Calls.Add(call);
+        db.SaveChanges();
+        ...
+      }
+  }
+  else
+  {
+      Call call = new Call(aux.CategoryId, tmpEmployee.EmployeeId, registration.Program, registration.Comments, registration.Positive, person);
+      db.Calls.Add(call);
+      db.SaveChanges();
+  }
+  return Json(true);
+  ...
+}
+return Json(false);
+</pre>
+                </div> <!-- controller -->
               </div>
             </div>
           </div><!-- end implementation -->
