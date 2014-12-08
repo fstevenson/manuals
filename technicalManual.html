@@ -34,6 +34,8 @@
             <dd data-magellan-arrival="database"><a href="#database">Database design</a></dd>
             <dd data-magellan-arrival="high"><a href="#high">High level design</a></dd>
             <dd data-magellan-arrival="user_interface"><a href="#user_interface">User Interface design</a></dd>
+            <dd data-magellan-arrival="validation"><a href="#validation">Validation</a></dd>
+            <dd data-magellan-arrival="implementation"><a href="#implementation">Implementation</a></dd>
           </dl>
         </div>
          <section class="large-12 small-12 columns">
@@ -49,6 +51,8 @@
               <li><a href="#database">3. Database design</a></li>
               <li><a href="#high">4. High level design</a></li>
               <li><a href="#user_interface">5. User interface design</a></li>
+              <li><a href="#validation">6. Validation</a></li>
+              <li><a href="#implementation">7. Implementation</a></li>
             </ul>
           </div>
           <div id="overview">
@@ -110,6 +114,7 @@
             </section>
             <!-- registration call design -->
             <section class="small-12 large-12 columns">
+              <a id="callRegistration"></a>
               <div class="small-12 large-3 panel columns">
                 <p>The diagram from the right shows the interaction among the components when a user registers a call on the system (<a id="call_design_show">show</a> | <a id="call_design_hide">hide</a>).It is assumed that the user is already logged into the system.</p>
               </div>
@@ -147,8 +152,144 @@
             <a id="user_interface"></a>
             <h4 data-magellan-destination="user_interface" class="cheaders">5. User interface design</h4>
             <hr class="chr">
-            <p class="panel callout radius">The system was </p>
-          </div>
+            <p class="panel callout radius">The system is built using the front-end framework called <span class="important">Foundation.</span> The framework is designed by dividing the width of the screen in twelve columns, which can be configured for small, medium or large devices. Besides to provide a responsive design, it also offer many interface elements, some of the important elements used on the system are: </p>
+              <!-- Navigation menu -->
+              <div class="large-7 small-12 panel columns">
+                <ul class="customList">
+                  <li><span class="important">Navigation menu.</span> It provides the navigation on the system to access the different modules. Also, the menu respond to the size of the screen.</li>
+                </ul>
+                <img src="images/nav.png" alt="navigation menu code"><br />
+                <span class="imgNote">[Image 7]. Navigation menu, code in "/Views/Shared/_Layout.cshtml".</span>
+              </div>
+              <div class="large-5 small-12 columns">
+                <p>Besides of using the CSS from Foundation, it is required to add the following scripts in order to have a responsive design.</p>
+                <code>
+                  @Scripts.Render("~/bundles/jquery")
+                  @Scripts.Render("~/Scripts/foundation.js")
+                  @Scripts.Render("~/Scripts/foundation.topbar.js")
+                </code>
+                <p>And include the next line of code inside a script, after the call to the javascript files mentioned.</p>
+                <code>
+                  $(document).foundation();
+                </code>
+                <p><span class="imgNote">Code in "/Views/Shared/_Layout.cshtml".</span></p>
+              </div>
+              <!-- end navigation menu-->
+            <!-- Responsive tables -->
+            <div class="large-7 small-12 panel columns">
+              <ul class="customList">
+                <li><span class="important">Responsive tables.</span></li>
+              </ul>
+              <img src="images/responsive_tables.png" alt="responsive tables"><br />
+              <span class="imgNote">[Image 8]. Responsive tables, code in "/Views/Shared/_Layout.cshtml".</span>
+            </div>
+            <div class="large-5 small-12 columns">
+              <p>To get the responsive tables work it is required to add the javascript: <code>@Scripts.Render("~/Scripts/responsive-tables.js")</code> and the CSS <code>@Styles.Render("~/Content/responsive-tables.css")</code>.</p>
+              <p><span class="imgNote">Code in "/Views/Shared/_Layout.cshtml".</span></p>
+            </div>
+            <!-- Responsive -->
+            <div class="large-12 small-12 columns">
+              <p>The next screenshot shows how the system looks in different sizes, depending on the device (<a id="responsive_design_show">show</a> | <a id="responsive_design_hide">hide</a>).</p>
+              <div id="responsive_design" class="large-8 small-12 panel columns" style="display:none">
+                <img src="images/responsive.png" alt="responsive system"><br />
+                <span class="imgNote">[Image 9]. Responsive system. <a href="http://ami.responsivedesign.is/">Am I responsive?</a>.</span>
+              </div>
+            </div>
+            <div class="large-12 small-12 columns">
+              <blockquote>References: <a href="http://foundation.zurb.com/docs/"> Foundation Documentation</a>, <a href="http://ami.responsivedesign.is/"> Am I responsive?</a></blockquote>
+            </div>
+            <!-- end Responsive -->
+          </div> <!-- end user interface -->
+          <!-- validation section -->
+          <div id="validation" class="small-12 large-12 columns">
+            <a id="validation"></a>
+            <h4 data-magellan-destination="validation" class="cheaders">6. Validation</h4>
+            <hr class="chr">
+            <div class="panel callout radius">
+              <p>All the forms used in the system has validation to configure, to prevent the user to submit empty or wrong information. The configuration of the validation is divided in two parts: 
+              </p>
+              <ol class="customList">
+                <li>In the Model for each property that by design it needs to be checked. This way to do it allow us to take advantage of Razor and generate HTML in a clean and faster way.</li>
+                <li>In the View using Razor syntax, specifiying which property of the model and indicating that its for validation</li>
+              </ol>
+            </div>
+            <p>For example:</p>
+            <p>The Model Registration <span class="imgNote">(code in "/Models/Registration.cs")</span> specifies which data is required and the text for the label.</p>
+            <p>
+            <pre>
+            [Required(ErrorMessage = "A phone number is required")]
+            [Display(Name = "Phone number:")]
+            public int PhoneNumber { get; set; }
+            </pre>
+            </p>
+            <p>In the View <span class="imgNote">(code in "/Views/Call/Register.cshtml")</span> at the top of the page it specifies which Model is going to be used for the view. To retrieve or assign data from the model is as follows:</p>
+            <p>Set validation to true <code>@Html.ValidationSummary(true)</code> and then
+            <br/>
+            <pre>
+            @Html.LabelFor(m => m.PhoneNumber)(gets the display name: "Phone number")
+            @Html.TextBoxFor(m => m.PhoneNumber)(assign the value to PhoneNumber)
+            @Html.ValidationMessageFor(m => m.PhoneNumber)(gets the ErrorMessage: "A phone number is required")
+            </pre>
+            </p>
+            <p>
+            In case the user submits the form with one or more empty fields the error message will be displayed. Same behavior when using Ajax, the system will not communicate with the server until the data is correct.</p>
+            <div class="panel">
+              <img src="images/validation.png" alt="validation message"><br />
+              <span class="imgNote">[Image 10]. Validation message.</span>
+            </div>
+            <div class="panel">
+              <p><span class="important">Note: </span> this only shows an example of how validation is configured in one of the models from the project, the models/views that have validation are:</p>
+              <ul>
+                <li>Model Registration.cs <span class="imgNote">(code in "/Models/Registration.cs")</span> / View: Call/Register <span class="imgNote">(code in "/Views/Call/Register.cshtml")</span>.</li>
+                <li>Model Search.cs <span class="imgNote">(code in "/Models/Search.cs")</span> / View: Person/Search <span class="imgNote">(code in "/Views/Person/Search.cshtml")</span>.</li>
+                <li>Model Chart.cs <span class="imgNote">(code in "/Models/Chart.cs")</span> / View: Chart/Index <span class="imgNote">(code in "/Views/Chart/Index.cshtml")</span>.</li>
+              </ul>
+            </div>
+          </div><!-- End validation -->
+          <!-- implementation section -->
+          <div id="implementation" class="small-12 large-12 columns">
+            <a id="implementation"></a>
+            <h4 data-magellan-destination="implementation" class="cheaders">7. Implementation</h4>
+            <hr class="chr">
+            <div class="panel callout radius">
+              <p>An explanation and features of each module from the system are going to be presented in this section.</p>
+            </div>
+            <div class="small-12 large-12 columns"> <!-- register -->
+              <h5 class="cheaders">7.1 Register</h5>
+              <hr class="chr">
+            </div>
+            <div class="small-12 large-12 columns"> <!-- login -->
+              <h5 class="cheaders">7.2 Login</h5>
+              <hr class="chr">
+            </div>
+            <div class="small-12 large-12 columns"> <!-- register a call -->
+              <h5 class="cheaders">7.3 Register a call</h5>
+              <hr class="chr">
+              <p class="panel callout radius">The main flow of actions for this module can be found in the diagram <a href="#callRegistration">Call Registration</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve information given a phone number, in order to fill fields automatically and create historic table; create a new entry in the database.</p>
+              <div class="small-12 large-12 columns"> <!-- Register a call ajax/json -->
+                <h6 class="cheaders">7.3.1 Register a call - Ajax/Json</h6>
+                <hr class="chr">
+                <p class="panel callout radius">The component was designed to communicate with the database via AJAX with the objective to provide fast and dynamic information to the employee, without the need to refresh the web page or go to another component.</p>
+                <p>After the user submits the form the first action from the system is to validate the fields, if all the fields are correct the data is going to be serialize in JSON format and send to the controller, the class that executes this action is Registration.js <span class="imgNote">(code in "/Scripts/Custom/registration.js")</span>, as shown below:</p>
+                <div class="small-12 large-4 panel columns">
+                  <span class="important">Registration.js</span>
+<pre style="font-size:0.8rem">
+if ($("form").valid()) {   
+  // Disable the button
+  $('input[type="submit"]').prop('disabled', true);
+  $.ajax({
+     type: "POST",
+     url: form.attr('action'),
+     dataType: 'json',
+     ContentType: 'application/json',
+     data: $("form").serialize()
+}) 
+...
+</pre>
+                </div>
+              </div>
+            </div>
+          </div><!-- end implementation -->
         </section>
 
         <footer class="large-12 columns cfooter">

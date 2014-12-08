@@ -62,4 +62,12 @@ $(document).ready(function () {
 		$('#charts_design').hide();
 	});
 
+	$('#responsive_design_show').on('click', function () {
+		$('#responsive_design').show();
+	});
+
+	$('#responsive_design_hide').on('click', function () {
+		$('#responsive_design').hide();
+	});
+
 });
