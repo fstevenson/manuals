@@ -28,24 +28,129 @@
         </nav>
         <div data-magellan-expedition="fixed">
           <dl class="sub-nav">
-            <dd data-magellan-arrival="build"><a href="#build">Build with HTML</a></dd>
-            <dd data-magellan-arrival="js"><a href="#js">Arrival 2</a></dd>
+            <dd data-magellan-arrival="contents"><a href="#contents">Contents</a></dd>
+            <dd data-magellan-arrival="overview"><a href="#overview">Overview</a></dd>
+            <dd data-magellan-arrival="architecture"><a href="#architecture">Architecture</a></dd>
+            <dd data-magellan-arrival="database"><a href="#database">Database design</a></dd>
+            <dd data-magellan-arrival="high"><a href="#high">High level design</a></dd>
+            <dd data-magellan-arrival="user_interface"><a href="#user_interface">User Interface design</a></dd>
           </dl>
         </div>
-        <section id="contents" class="large-12 small-12 columns">
+         <section class="large-12 small-12 columns">
           <h3 class="cheaders">Technical Manual</h3>
+          <hr class="chr">
+          <div id="contents">
+            <a name="contents"></a>
+            <h4 data-magellan-destination="contents" class="cheaders"> Contents:</h4>
+            <p>The technical manual has the following contents: </p>
+            <ul class="customList">
+              <li><a href="#overview">1. Overview</a></li>
+              <li><a href="#architecture">2. Architecture</a></li>
+              <li><a href="#database">3. Database design</a></li>
+              <li><a href="#high">4. High level design</a></li>
+              <li><a href="#user_interface">5. User interface design</a></li>
+            </ul>
+          </div>
+          <div id="overview">
+            <a id="overview"></a>
+            <h4 data-magellan-destination="overview" class="cheaders">1. Overview</h4>
+            <hr class="chr">
+            <p>The technical manual document outlines the technical details of architecture, design and implementation of the system. The documents presents a high level design consisting of the main functionality the program does and afterwards a detailed design is included in order to demostrate what is intended to be achieved with the implementation.</p>
+          </div>
+          <div id="architecture">
+            <a id="architecture"></a>
+            <h4 data-magellan-destination="architecture" class="cheaders">2. Architecture</h4>
+            <hr class="chr">
+            <p>The system is build using ASP.NET MVC and a SQL Express Database. The Model-View-Controller (MVC) architectural pattern separates an application into three main components: models, views and controllers. The main advantages of using an MVC pattern are:</p>
+            <ul class="customList">
+              <li>It makes easier to manage a complex application.</li>
+              <li>Enables full control over the rendered HTML.</li>
+              <li>The application follows a natural cycle: when a user takes an action, the data models changes and delivers an updated view to the user.</li>
+              <li>ASP.NET MVC helps the developer to produce clean, standard markup using HTML helper methods.</li>
+              <li>Given the fact that the application is separated in layers, it makes easier to test each component individually.</li>
+              <li>Powerful routing system (more similar to RestFul). For example, instead of URLs like this: <code>/App_v2/User/Page.aspx?action=show%20prop&prop_id=82742</code> uses URLs like: <code>/to-rent/chicago/2303-silver-street</code>.</li>
+            </ul>
+            <br />
+            <p>The next diagram shows how the application is separated in layers, the comunication among components and the contents of each one.</p>
+            <img src="images/architecture.png" alt="architecture"><br />
+            <span class="imgNote">[Image 1]. Architecture of the system.</span>
+            <blockquote>References: <a href="http://msdn.microsoft.com/en-us/library/dd381412%28v=vs.108%29.aspx"> ASP.NET MVC Overview</a>, <a href="http://stackoverflow.com/questions/102558/biggest-advantage-to-using-asp-net-mvc-vs-web-forms"> ASP.NET MVC advantages</a>, Pro ASP.NET MVC 4 (Professional Apress) 4th. Apress Berkely, CA, USA ©2013. ISBN:1430242361 9781430242369</blockquote>
+          </div>
+          <div id="database">
+            <a id="database"></a>
+            <h4 data-magellan-destination="database" class="cheaders">3. Database design</h4>
+            <hr class="chr">
+            <p>Two databases are used in the system, one is the default database used for users and roles; the other was designed specifically for the system. The next diagram shows the design of the databases and both are linked.</p>
+          </div>
+          <div id="high">
+            <a id="high"></a>
+            <h4 data-magellan-destination="high" class="cheaders">4. High level design</h4>
+            <hr class="chr">
+            <p>The user can perform different actions in the system. The following diagrams shows how the diagram communicates among its components when the user sends a request to the system.</p>
+            <section class="small-12 large-12 columns">
+              <div class="small-12 large-3 panel columns">
+                <p>The diagram from the right shows the interaction among the components when a user register on the system (<a id="register_design_show">show</a> | <a id="register_design_hide">hide</a>).</p>
+              </div>
+              <div id="register_design" class="small-12 large-9 panel columns">
+                <p><span class="important">Register. </span></p>
+                <img src="images/register_design.png" alt="register new user"><br />
+                <span class="imgNote">[Image 2]. A new user registers on the system.</span>
+              </div>
+            </section>
+            <!-- login design -->
+            <section class="small-12 large-12 columns">
+              <div class="small-12 large-3 panel columns">
+                <p>The diagram from the right shows the interaction among the components when a user log into the system (<a id="login_design_show">show</a> | <a id="login_design_hide">hide</a>).</p>
+              </div>
+              <div id="login_design" class="small-12 large-9 panel columns">
+                <p><span class="important">Login. </span></p>
+                <img src="images/register_design.png" alt="register new user"><br />
+                <span class="imgNote">[Image 3]. A new user registers on the system.</span>
+              </div>
+            </section>
+            <!-- registration call design -->
+            <section class="small-12 large-12 columns">
+              <div class="small-12 large-3 panel columns">
+                <p>The diagram from the right shows the interaction among the components when a user registers a call on the system (<a id="call_design_show">show</a> | <a id="call_design_hide">hide</a>).It is assumed that the user is already logged into the system.</p>
+              </div>
+              <div id="call_design" class="small-12 large-9 panel columns">
+                <p><span class="important">Call registration. </span></p>
+                <img src="images/call_design.png" alt="register call design"><br />
+                <span class="imgNote">[Image 4]. A new call registration is stored on the system.</span>
+              </div>
+            </section>
+            <!-- search design -->
+            <section class="small-12 large-12 columns">
+              <div class="small-12 large-3 panel columns">
+                <p>The diagram from the right shows the interaction among the components when a wants to perform a search for a person on the system (<a id="search_design_show">show</a> | <a id="search_design_hide">hide</a>). It is assumed that the user is already logged into the system and it has access to the module.</p>
+              </div>
+              <div id="search_design" class="small-12 large-9 panel columns">
+                <p><span class="important">Search. </span></p>
+                <img src="images/search_design.png" alt="search design"><br />
+                <span class="imgNote">[Image 5]. Search of a person.</span>
+              </div>
+            </section>
+            <!-- charts design -->
+            <section class="small-12 large-12 columns">
+              <div class="small-12 large-3 panel columns">
+                <p>The diagram from the right shows the interaction among the components when a wants to generate the charts on the system (<a id="charts_design_show">show</a> | <a id="charts_design_hide">hide</a>). It is assumed that the user is already logged into the system and it has access to the module.</p>
+              </div>
+              <div id="charts_design" class="small-12 large-9 panel columns">
+                <p><span class="important">Charts. </span></p>
+                <img src="images/charts_design.png" alt="charts design"><br />
+                <span class="imgNote">[Image 6]. Charts components interaction.</span>
+              </div>
+            </section>
+          </div> <!-- high level design -->
+          <!-- User interface section -->
+          <div id="user_interface" class="small-12 large-12 columns">
+            <a id="user_interface"></a>
+            <h4 data-magellan-destination="user_interface" class="cheaders">5. User interface design</h4>
+            <hr class="chr">
+            <p class="panel callout radius">The system was </p>
+          </div>
         </section>
-        
-        <a name="build"></a>
-        <h4 data-magellan-destination="build">Arrival</h4>
-        <div class="large-12 small-12 columns">
-                <p>In order to get the charts, the employee must select first a range of dates, then when clicks on "Search" button a success message is displayed to let the employee know that there are registered calls between that range of dates. Besides showing the message, a section of general information is created. This section contains a summary of the charts, for example, the total number of calls, how many people called, diversity of topics, etc.</p>
-                <p>The section of the charts presents the statitstics in a visual way, helping the employee understand the data more easily. The first chart shows in which days there were calls registered and how many. After the first one, three more charts are presented: the chart on the left represents the frequency of the topics or subject treated during the calls, similar to the chart on the middle, represents how many calls were registered during the morning or afternoon news program. Finally, the chart on the right shows the ratio between a positive or a negative comment evaluation.</p>
-            </div>
-            <div class="large-12 small-12 columns">
-                <p>In order to get the charts, the employee must select first a range of dates, then when clicks on "Search" button a success message is displayed to let the employee know that there are registered calls between that range of dates. Besides showing the message, a section of general information is created. This section contains a summary of the charts, for example, the total number of calls, how many people called, diversity of topics, etc.</p>
-                <p>The section of the charts presents the statitstics in a visual way, helping the employee understand the data more easily. The first chart shows in which days there were calls registered and how many. After the first one, three more charts are presented: the chart on the left represents the frequency of the topics or subject treated during the calls, similar to the chart on the middle, represents how many calls were registered during the morning or afternoon news program. Finally, the chart on the right shows the ratio between a positive or a negative comment evaluation.</p>
-            </div>
+
         <footer class="large-12 columns cfooter">
             <div class="panel">
               <p class="pPanel">&copy; 2014 - Store Calls System Manuals</p>

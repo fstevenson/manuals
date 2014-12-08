@@ -149,7 +149,7 @@ img{
     border-style: solid;
     border-color: black;
     border-width: 0.1rem;
-    width: 90%   !important;
+    width: 100%   !important;
     height: auto   !important;
 }
 .important{
