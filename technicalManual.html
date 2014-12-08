@@ -35,6 +35,7 @@
             <dd data-magellan-arrival="high"><a href="#high">High level design</a></dd>
             <dd data-magellan-arrival="user_interface"><a href="#user_interface">User Interface design</a></dd>
             <dd data-magellan-arrival="validation"><a href="#validation">Validation</a></dd>
+            <dd data-magellan-arrival="authentication"><a href="#authentication">Authentication</a></dd>
             <dd data-magellan-arrival="implementation"><a href="#implementation">Implementation</a></dd>
           </dl>
         </div>
@@ -52,7 +53,8 @@
               <li><a href="#high">4. High level design</a></li>
               <li><a href="#user_interface">5. User interface design</a></li>
               <li><a href="#validation">6. Validation</a></li>
-              <li><a href="#implementation">7. Implementation</a></li>
+              <li><a href="#authentication">7. Authentication</a></li>
+              <li><a href="#implementation">8. Implementation</a></li>
             </ul>
           </div>
           <div id="overview">
@@ -126,6 +128,7 @@
             </section>
             <!-- search design -->
             <section class="small-12 large-12 columns">
+            <a id="searchPerson"></a>
               <div class="small-12 large-3 panel columns">
                 <p>The diagram from the right shows the interaction among the components when a wants to perform a search for a person on the system (<a id="search_design_show">show</a> | <a id="search_design_hide">hide</a>). It is assumed that the user is already logged into the system and it has access to the module.</p>
               </div>
@@ -246,32 +249,44 @@
               </ul>
             </div>
           </div><!-- End validation -->
+          <!--Authentication -->
+          <div id="authentication" class="small-12 large-12 columns">
+            <a id="authentication"></a>
+            <h4 data-magellan-destination="authentication" class="cheaders">7. Authentication</h4>
+            <hr class="chr">
+            <div class="panel callout radius">
+              <p>An explanation and features of each module from the system are going to be presented in this section.</p>
+            </div>
+          </div>
+          <!-- end authentication -->
           <!-- implementation section -->
           <div id="implementation" class="small-12 large-12 columns">
             <a id="implementation"></a>
-            <h4 data-magellan-destination="implementation" class="cheaders">7. Implementation</h4>
+            <h4 data-magellan-destination="implementation" class="cheaders">8. Implementation</h4>
             <hr class="chr">
             <div class="panel callout radius">
               <p>An explanation and features of each module from the system are going to be presented in this section.</p>
             </div>
             <div class="small-12 large-12 columns"> <!-- register -->
-              <h5 class="cheaders">7.1 Register</h5>
+              <h5 class="cheaders">8.1 Register</h5>
               <hr class="chr">
             </div>
             <div class="small-12 large-12 columns"> <!-- login -->
-              <h5 class="cheaders">7.2 Login</h5>
+              <h5 class="cheaders">8.2 Login</h5>
               <hr class="chr">
             </div>
             <div class="small-12 large-12 columns"> <!-- register a call -->
-              <h5 class="cheaders">7.3 Register a call</h5>
+              <h5 class="cheaders">8.3 Register a call</h5>
               <hr class="chr">
               <p class="panel callout radius">The main flow of actions for this module can be found in the diagram <a href="#callRegistration">Call Registration</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve information given a phone number, in order to fill fields automatically and create historic table; create a new entry in the database.</p>
+              <p>Besides ASP.NET MVC the technologies used are: Jquery, Ajax, JSON.</p>
               <div class="small-12 large-12 columns"> <!-- Register a call ajax/json -->
-                <h6 class="cheaders">7.3.1 Register a call - Ajax/Json</h6>
+                <h6 class="cheaders">7.3.1 Register a call - submit - Ajax/Json</h6>
                 <hr class="chr">
                 <p class="panel callout radius">The component was designed to communicate with the database via AJAX with the objective to provide fast and dynamic information to the employee, without the need to refresh the web page or go to another component.</p>
                 <p>After the user submits the form the first action from the system is to validate the fields, if all the fields are correct the data is going to be serialize in JSON format and send to the controller, the class that executes this action is Registration.js <span class="imgNote">(code in "/Scripts/Custom/registration.js")</span>, as shown below:</p>
-                <div class="small-12 large-4 panel columns">
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
                   <span class="important">Registration.js</span>
 <pre>
 if ($("form").valid()) {   
@@ -285,16 +300,37 @@ if ($("form").valid()) {
      data: $("form").serialize()
 }) 
 ...
-</pre>
+</pre>      
+              </div>
+              <span class="imgNote">1. First step, data serialize and send to controller.</span>
                 </div> <!-- registration .js -->
-                <div class="small-12 large-8 panel columns">
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
+                  <span class="important">Registration.js</span>. After the response from the controller:
+<pre>
+ if (data === true) {
+    $('input[type="submit"]').prop('disabled', false);
+    $('div#messages').attr('class', 'alert-box success radius');
+    $('div#messages').show();
+    $('div#messages').text("The information of the call has been successfully saved").fadeOut(4000);
+    // Clean the fields of the form to leave them ready the form for the next call.
+    $('input#PhoneNumber').val('');
+...
+}
+...
+</pre>      
+              </div>
+              <span class="imgNote">3. Third step, the javascript receives the data from the controller and displays the message.</span>
+                </div> <!-- registration .js -->
+
+                <div class="small-12 large-12 columns">
+                  <div class="panel">
                   <span class="important">CallController.cs</span>
                   The action in the controller will return JSON. If model is valid and the person who called is already registered on the database, his address is going to be update it. Otherwise, register a new person and a new call.
-<pre style="font-size:0.8rem">
+<pre>
 [HttpPost]
 public JsonResult Register(Models.Registration registration)
-</pre>
-<pre>
+...
 if (ModelState.IsValid)
 {
 ...
@@ -336,9 +372,293 @@ if (ModelState.IsValid)
 }
 return Json(false);
 </pre>
-                </div> <!-- controller -->
               </div>
+              <span class="imgNote">2. Second step, response in JSON format from the controller.</span>
+                </div> <!-- controller -->
+              </div> <!-- register a call submit -->
+              <div class="small-12 large-12 columns"> <!-- Register a call - phone number - ajax/json -->
+                <h6 class="cheaders">7.3.2 Register a call - phone number typed - Ajax/Json</h6>
+                <hr class="chr">
+                <p class="panel callout radius">After a user type the phone number, the .js file will read the value and communicate with the controller to retrieve information about the person.</p>
+                <div class="small-12 large-6 columns">
+                  <div class="panel">
+                  <span class="important">Registration.js</span>. User focus out from the phone number field, an ajax call will be created:
+<pre>
+...
+$.ajax({
+    type: 'POST',
+    url: '/Call/Complete',
+    data: { phoneNumber: phoneNumber },
+    dataType: "json",
+    ContentType: 'application/json'
+})
+...
+</pre>      
+                </div>
+                  <span class="imgNote">1. First step, get phone number value and communicate with the controller.</span>
+              </div> <!-- registration .js -->
+              <div class="small-12 large-6 columns">
+                  <div class="panel">
+                  <span class="important">Registration.js</span>. After the response from the controller, fill the fields with the data:
+<pre>
+...
+.success(function (data) {
+if (data !== false) {
+    // Clean error messages from the screen and append the span back to be able to show future error messages.
+    $('span[data-valmsg-for="PhoneNumber"]').remove();
+    $('#errorPhoneNumber').append("<span class='field-validation-valid' data-valmsg-for='PhoneNumber' data-valmsg-replace='true'></span>");
+    $('input#Name').val(data.Name);
+    $('span[data-valmsg-for="Name"]').remove();
+    $('#errorName').append("<span class='field-validation-valid' data-valmsg-for='Name' data-valmsg-replace='true'></span>");
+    $('input#LastName').val(data.LastName);
+...
+</pre>      
+                </div>
+                  <span class="imgNote">3. Third step, fill in the fields.</span>
+              </div> <!-- registration .js -->
+              <div class="small-12 large-12 columns">
+                <div class="panel">
+                  <span class="important">CallController.cs, Complete action</span>
+                  The action in the controller will return the model modified in JSON format.
+<pre>
+[HttpPost]
+public JsonResult Complete(Models.Registration registration)
+{
+    var aux = db.Persons.Any(p => p.PhoneNumber == registration.PhoneNumber);
+    if (aux)
+    {
+        Person tmpPerson = db.Persons.Single(p => p.PhoneNumber == registration.PhoneNumber);
+
+        registration.Name = tmpPerson.Name;
+        registration.LastName = tmpPerson.LastName;
+        registration.Address1 = tmpPerson.Address1;
+        registration.Address2 = tmpPerson.Address2;
+        registration.PostCode = tmpPerson.PostCode;
+        return Json(registration);
+    }
+    return Json(false);
+}
+</pre>
+              </div>
+              <span class="imgNote">2. Second step, the controller modifies the received model.</span>
             </div>
+              </div> <!-- phone number typed -->
+              <div class="small-12 large-12 columns"> <!-- Register a call phone typed - ajax/json -->
+                <h6 class="cheaders">7.3.3 Register a call - historical data - Ajax/Json</h6>
+                <hr class="chr">
+                <p class="panel callout radius">After a user type the phone number, the .js file will read the value and communicate with the controller to retrieve information about the historical data of the person.</p>
+                <div class="small-12 large-12 columns">
+                  <div class="panel">
+                  <span class="important">Registration.js</span>. User focus out from the phone number field, an ajax call will be created:
+<pre>
+...
+ $.ajax({
+    type: 'POST',
+    url: '/Call/Historical',
+    data: { phoneNumber: phoneNumber },
+    dataType: "json",
+    ContentType: 'application/json'
+})
+...
+</pre>      
+                </div>
+                  <span class="imgNote">1. First step, get phone number value and communicate with the controller.</span>
+              </div> <!-- registration .js -->
+              <div class="small-12 large-12 columns">
+                <div class="panel">
+                  <span class="important">CallController.cs, Complete action</span>
+                  The action in the controller will return the model modified in JSON format.
+<pre>
+...
+var aux = db.Persons.Any(p => p.PhoneNumber == registration.PhoneNumber);
+if (aux)
+{
+    Person tmpPerson = db.Persons.Single(p => p.PhoneNumber == registration.PhoneNumber);
+    var bCalls = db.Calls.Any(c => c.Person.PersonId == tmpPerson.PersonId);
+    if (bCalls)
+    {
+        var calls = (from ca in db.Calls
+                     join a in db.Categories on ca.CategoryId equals a.CategoryId
+                     where ca.Person.PersonId == tmpPerson.PersonId
+                     orderby ca.TimeCall descending
+                     select new {ca.Program, a.CategoryName, ca.Comments, ca.Positive, ca.TimeCall});
+
+        List<Historic> lCall = new List<Historic>();
+        int cPositive = 0;
+        int cNegative = 0;
+        foreach (var c in calls)
+        {
+            Historic call = new Historic(c.Program, c.CategoryName, c.Comments, c.Positive, c.TimeCall.ToString());
+            if (c.Positive)
+                cPositive++;
+            else
+                cNegative++;
+            lCall.Add(call);
+        }
+        return Json(new { Name = tmpPerson.Name, LastName = tmpPerson.LastName, Address1 = tmpPerson.Address1, Address2 = tmpPerson.Address2, PostCode = tmpPerson.PostCode, nPositive = cPositive, nNegative = cNegative, Calls = lCall });
+    }
+    else
+        return Json(false);
+...
+</pre>
+              </div>
+              <span class="imgNote">2. Second step, the controller modifies the received model.</span>
+            </div>
+            <div class="small-12 large-6 columns">
+                  <div class="panel">
+                  <span class="important">Registration.js</span>. After the response from the controller, send message about reputation from the person:
+<pre>
+...
+// Check if the number of positive comments are equal to the number of negative comments
+if (data.nPositive === data.nNegative) {
+    $('div#messages').attr('class', 'alert-box info round');
+    $('div#messages').show();
+    $('div#messages').text("The user has the same number of positive and negative comments").fadeOut(3000);
+}
+else if (data.nPositive > data.nNegative) {
+    // Notify if the user has a good reputation (more positive comments than negative)
+    $('div#messages').attr('class', 'alert-box info round');
+    $('div#messages').show();
+    $('div#messages').text("The user has a reputation of positive comments").fadeOut(3000);
+}
+else {
+    // Notify if the user has a bad reputation when calling (more negative comments than positive)
+    $('div#messages').attr('class', 'alert-box warning round');
+    $('div#messages').show();
+    $('div#messages').text("The user has a reputation of negative comments").fadeOut(3000);
+...
+</pre>      
+                </div>
+                  <span class="imgNote">3. Third step part 1, show message regard the reputation.</span>
+              </div> <!-- registration .js -->
+              <div class="small-12 large-6 columns">
+                  <div class="panel">
+                    <span class="important">Registration.js</span>. Part 2, create table with historical data.
+                    <img src="images/phone_historical.png" alt="code"><br />    
+                    <span class="imgNote">3. Third step part 2, historical data.</span>
+                  </div>
+                  
+              </div> <!-- registration .js -->
+              </div> <!-- phone number historical typed -->
+              <div class="small-12 large-12 columns">
+                <p><span class="important">Note: </span> the javascript file "Registration.js" can be found at /Scripts/Custom/registration.js, the controller "CallController" can be found at: /controllers/CallController.cs, model used "Registration" found at: /Models/Registration.cs, View used "Register.cshtml" found at: /Views/Call/Register.cshtml</p>
+              </div>
+            </div> <!-- register a call -->
+            <!-- search -->
+            <div class="small-12 large-12 columns"> 
+              <h5 class="cheaders">8.4 Search a person</h5>
+              <hr class="chr">
+              <p class="panel callout radius">The main flow of actions for this module can be found in the diagram <a href="#searchPerson">Search person</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve information given a a name or phone number, in order to create a table with the results.</p>
+              <div class="small-12 large-6 columns">
+                <div class="panel">
+                  <span class="important">search.js</span>. User select a search criteria, typed a value and clicked on the button:
+<pre>
+...
+$.ajax({
+    type: "POST",
+    url: form.attr('action'),
+    dataType: 'json',
+    ContentType: 'application/json',
+    data: $("form").serialize()
+    //data: stringfied
+})
+...
+</pre>      
+                </div>
+                  <span class="imgNote">Use ajax to communicate with the controller.</span>
+              </div> <!-- search .js -->
+              <div class="small-12 large-6 columns">
+                <div class="panel">
+                  <span class="important">PersonController, search action</span>. The controller receives the data and looks in the database to retrieve the information.
+<pre>
+[HttpPost]
+public JsonResult Search(Models.Search search)
+{
+    if (search.Criteria.ToLower().Equals("phone number"))
+    {
+        int n;
+        bool isNumeric = int.TryParse(search.Value, out n);
+        if (isNumeric)
+        {
+            var checkPerson = db.Persons.Any(p => p.PhoneNumber == n);
+            if (checkPerson)
+            {
+                var people = (from p in db.Persons
+                              where p.PhoneNumber == n
+                              orderby p.PhoneNumber descending
+                              select p);
+
+                List<Person> lPerson = new List<Person>();
+                foreach (var p in people)
+                {
+                    Person person = new Person(p.PersonId, p.PhoneNumber, p.Name, p.LastName, p.Address1, p.Address2, p.PostCode);
+                    lPerson.Add(person);
+                }
+                return Json(new { success = true, people = lPerson });
+            }
+            else
+                return Json(new { success = false, errorMessage = "No results found" });
+
+        }
+        else
+            return Json(new { success = false, errorMessage = "The phone number must be only digits" });
+    }
+    else if (search.Criteria.ToLower().Equals("name"))
+    {
+        var checkPerson = db.Persons.Any(p => p.Name.Contains(search.Value) || p.LastName.Contains(search.Value));
+        if (checkPerson)
+        {
+            var people = (from p in db.Persons
+                          where p.Name.Contains(search.Value) || p.LastName.Contains(search.Value)
+                          orderby p.LastName descending
+                          select p);
+
+            List<Person> lPerson = new List<Person>();
+            foreach (var p in people)
+            {
+                Person person = new Person(p.PersonId, p.PhoneNumber, p.Name, p.LastName, p.Address1, p.Address2, p.PostCode);
+                lPerson.Add(person);
+            }
+            return Json(new { success = true, people = lPerson });
+        }
+        else
+            return Json(new { success = false, errorMessage = "No results found" });
+
+    }
+    return Json(new { success = false, errorMessage = "Criteria must be name or phone number" });
+}
+</pre>
+                </div>
+              </div>
+              <div class="small-12 large-6 columns">
+                <div class="panel">
+                  <span class="important">search.js</span>. The response is received a message is displayed on the screen (success or failure).
+<pre>
+...
+$('input[type="submit"]').prop('disabled', false);
+$('div#messages').attr('class', 'alert-box success radius');
+$('div#messages').show();
+$('div#messages').text("Search successful").fadeOut(4000);
+...
+$('div#messages').attr('class', 'alert-box alert radius');
+$('div#messages').show();
+$('div#messages').text(data.errorMessage).fadeOut(4000);
+$('input[type="submit"]').prop('disabled', false);
+...
+</pre>      
+                </div>
+                  <span class="imgNote">Messages that can be shown.</span>
+              </div> <!-- search .js -->
+              <div class="small-12 large-6 columns">
+                <div class="panel">
+                  <span class="important">search.js</span>. Besides the message, the table is generated.
+                   <img src="images/history_results.png" alt="code"><br />    
+                  <span class="imgNote">Code to generate results table.</span>
+                </div>
+              </div> <!-- search .js -->
+
+
+            </div><!-- end search -->
           </div><!-- end implementation -->
         </section>
 

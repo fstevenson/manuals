@@ -70,4 +70,20 @@ $(document).ready(function () {
 		$('#responsive_design').hide();
 	});
 
+	String.prototype.escapeHTML = function () {                                        
+	  return(                                                                 
+	    this.replace(/>/g,'&gt;').
+	         replace(/</g,'&lt;').
+	         replace(/"/g,'&quot;')
+	  );
+	};
+	var codeEl = document.getElementById('historic');
+	if (codeEl) {
+	  codeEl.innerHTML = codeEl.innerHTML.escapeHTML();
+	}
+	var codeEl2 = document.getElementById('sPerson');
+	if (codeEl2) {
+	  codeEl2.innerHTML = codeEl2.innerHTML.escapeHTML();
+	}
+
 });

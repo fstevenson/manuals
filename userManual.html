@@ -64,14 +64,51 @@
         <div class="large-12 medium-12 small-12 columns"> 
             <p>In the following sections each of the elements are explained in detail:</p>
             <ul>
-                <li>3.1 Register</li>
-                <li>3.2 Log in</li>
+                <li><a href="#register">3.1 Register</a></li>
+                <li><a href="#login">3.2 Log in</a></li>
                 <li><a href="#registerCall">3.3 Register Call</a></li>
                 <li><a href="#search">3.4 Search</a></li>
                 <li><a href="#charts">3.5 Charts</a></li>
-                <li>3.6 Control Panel</li>
+                <li><a href="#controlPanel">3.6 Control Panel</a></li>
             </ul>
         </div>
+        <div class="large-12 small-12 columns">
+        <a id="register"></a> 
+            <h5 class='title cheaders'>3.1 Register user</h5>
+            <hr class="chr">
+            <div class="panel callout radius">
+                <p>The employee must type a unique username and password for his account. After the user registered on the system it will have access by default to the register call page.</p>
+            </div>
+            <section class="large-6 small-12 panel columns">
+                <span class="important">Empty fields.</span>
+                <img src="images/register_empty.png" alt="user registration" >
+                <br />
+                <span class="imgNote">[Image 3] Registration call page.</span>
+            </section>
+            <section class="large-6 small-12 panel columns">
+                <span class="important">Password do not match.</span>
+                <img src="images/register_mismatch.png" alt="user registration password" >
+                <br />
+                <span class="imgNote">[Image 4] Registration call page.</span>
+            </section>
+        </div>
+        <!--Login-->
+        <div class="large-12 small-12 columns">
+        <a id="login"></a> 
+            <h5 class='title cheaders'>3.2 Login</h5>
+            <hr class="chr">
+            <div class="panel callout radius">
+                <p>The employee must type his username and password to be able to use the system. After the employee logged into the system, it will be redirected to register call page. The user can click on "Remember me" to keep the session alive.</p>
+            </div>
+            <section class="large-6 small-12 panel columns">
+                <span class="important">Login.</span>
+                <img src="images/login.png" alt="user registration" >
+                <br />
+                <span class="imgNote">[Image 5] Login.</span>
+            </section>
+        </div>
+
+
         <div class="large-12 small-12 columns">
         <a id="registerCall"></a> 
             <h5 class='title cheaders'>3.3 Register call</h5>
@@ -87,7 +124,7 @@
             <section id="reg_page" class="large-10 small-9 panel columns" style="display:none">
                 <img id="register" src="images/call_registration.png" alt="call registration" >
                 <br />
-                <span class="imgNote">[Image 2] Registration call page.</span>
+                <span class="imgNote">[Image 6] Registration call page.</span>
             </section>
         </div>
         <div class="large-12 small-12 columns">
@@ -101,13 +138,13 @@
                 <p>1. In order to be able to register a call, <span class="important">all the information must be provided</span>. Otherwise, The system will show a message asking the user to enter the information required.</p>
                 <img src="images/empty_registration.png" alt="fields missing registration form">
                 <br />
-                <span class="imgNote">[Image 3] Scenario # 1: An error message is shown per every empty field. </span>
+                <span class="imgNote">[Image 7] Scenario # 1: An error message is shown per every empty field. </span>
             </div>
             <div class="panel">
                 <p>3. The next image shows the historic data from the person who called (latest five calls or less) and how its presented to the employee.</p>
                 <img src="images/registration_historic.png" alt="fields missing registration form">
                 <br />
-                <span class="imgNote">[Image 4] Scenario # 2 part 2: The employee receives the historical data from the person, to provide the employee to have a quick review about the person.</span>
+                <span class="imgNote">[Image 9] Scenario # 2 part 2: The employee receives the historical data from the person, to provide the employee to have a quick review about the person.</span>
             </div>
         </div>
         <div class="large-6 small-6 panel columns">
@@ -122,30 +159,30 @@
             </ol>
             <img src="images/registration_feedback.png" alt="feedback and autocomplete">
             <br />
-            <span class="imgNote">[Image 5] Scenario # 2: The employee receives the feedback from the person calling and gets some fields filled in automatically. </span>
+            <span class="imgNote">[Image 8] Scenario # 2: The employee receives the feedback from the person calling and gets some fields filled in automatically. </span>
         </div>
         <div class="large-12 small-12 columns">
             <a id="search"></a>
             <h5 class='title cheaders'>3.4 Search</h5>
             <hr class="chr">
             <article>
-                <p class="panel callout radius">The search module works to help the employees to search for a person to check the history of calls that has made. To know more about the elements of this section <span style="font-style: italic"><a href="#img6"> check the screenshot below</a>.</span> </p>
-                <p><span class="important">Note:</span> Not all the users registered on the system have access to this section, the admin is the responsible to grant access to this and other sections of the system. To know more about the admin role please check <a href="#admin">Admin</a>.</p>
+                <p class="panel callout radius">The search module works to help the employees to search for a person to check the history of calls that has made. To know more about the elements of this section <span style="font-style: italic"><a href="#img10"> check the screenshot below</a>.</span> </p>
+                <p><span class="important">Note:</span> Not all the users registered on the system have access to this section, the admin is the responsible to grant access to this and other sections of the system. To know more about the admin role please check <a href="#controlPanel">Admin</a>.</p>
             </article>
         </div>
         <div class="small-12  large-12 panel columns">
             <div class="small-12  large-6 columns">
                 <p>Elements of the search page. To find out more about how to perform a search check the following <a href="#search_results">section</a>.</p>
-                <a id="img6"></a>
+                <a id="img10"></a>
                 <img src="images/search.png" alt="search"><br />
-                <span class="imgNote">[Image 6]. A search can be performed by name or by phone number</span>
+                <span class="imgNote">[Image 10]. A search can be performed by name or by phone number</span>
             </div>
             <div class="small-12 large-6 columns">
                 <p>In order to perform a search, an employee must follow the next steps:</p>
                 <ul>
                     <li><span class="important">Search criteria</span>. The employee must choose one of the two options: by name or by phone number</li>
                     <img src="images/search_criteria.png" alt="search criteria"><br />
-                    <span class="imgNote">[Image 7]. Search criteria options: by name or by phone number</span>
+                    <span class="imgNote">[Image 11]. Search criteria options: by name or by phone number</span>
                     <li><span class="important">Value to find</span>. The employee must type the value that is looking for, it can be digits for phone number or text for name.</li>
                 </ul>
             </div>
@@ -157,29 +194,31 @@
             <p>After performing a search, the results will be presented to the employee in form of a table. Multiple records can be displayed on the screen in case that the name matches more than one person.</p> 
             <div id="row">
             <div class="large-6 small-6 panel columns">
-                <a id="img8"></a>
+                <a id="img12"></a>
                 <span class="important">Search by name</span>. <p>To search by name the user can type the whole name or just a part of it, the system will return all the records that matches the value.</p>
                 <img src="images/search_name.png" alt="search by name"><br />
-                <span class="imgNote">[Image 8]. Performing a search by name.</span>
+                <span class="imgNote">[Image 12]. Performing a search by name.</span>
             </div>
             <div class="large-6 small-6 panel columns">
-                <a id="img9"></a>
-                <span class="important">Search by phone</span>. <p>To search by phone the user type the exact phone number that wants to find in the system. Otherwise, the system will not find the record and it will display a message similar as in <a href="#img10">[Image 10]</a>.</p>
+                <a id="img13"></a>
+                <span class="important">Search by phone</span>. <p>To search by phone the user type the exact phone number that wants to find in the system. Otherwise, the system will not find the record and it will display a message similar as in <a href="#img10">[Image 14]</a>.</p>
                 <img src="images/search_number.png" alt="search by phone"><br />
-                <span class="imgNote">[Image 9]. Performing a search by phone number.</span>
+                <span class="imgNote">[Image 13]. Performing a search by phone number.</span>
             </div>
+        </div>
+        <div class="large-12 small-12 columns">
             </div>
             <div class="large-6 small-6 panel columns">
-                <a id="img10"></a>
+                <a id="img14"></a>
                 <span class="important">No results found</span>. <p>In case that there are no records that matches with the value of the search, the next message will be displayed.</p>
                 <img src="images/search_no_results.png" alt="search no results"><br />
-                <span class="imgNote">[Image 10]. Search with no results found.</span>
+                <span class="imgNote">[Image 14]. Search with no results found.</span>
             </div>
             <div class="large-6 small-6 panel columns">
-                <a id="img11"></a>
+                <a id="img15"></a>
                 <span class="important">Wrong type</span>. <p>The next message will be display in case that the selected search criteria is phone and the user typed text.</p>
                 <img src="images/search_wrong_type.png" alt="search wrong type"><br />
-                <span class="imgNote">[Image 11]. Search usng wrong type values.</span>
+                <span class="imgNote">[Image 15]. Search usng wrong type values.</span>
             </div>
         </div>
         <!--
@@ -196,7 +235,7 @@
         -->
         <section class="small-12 large-12 columns">
             <h6 class='title cheaders'>3.4.2 Search Results - Check history</h6>
-            <p class="panel callout radius">After the results of the search are displayed to the user as is shown in <a href="#img8">[Image 8]</a> and <a href="#img9">[Image 9]</a>. To check the complete details of the person, including the historic calls, the employee must click on the link <a>Check history</a> of the desired person.</p>
+            <p class="panel callout radius">After the results of the search are displayed to the user as is shown in <a href="#img12">[Image 12]</a> and <a href="#img13">[Image 13]</a>. To check the complete details of the person, including the historic calls, the employee must click on the link <a>Check history</a> of the desired person.</p>
         </section>
         <div class="small-12 large-12 panel columns">
             <div class="small-4 large-4 columns">
@@ -207,22 +246,22 @@
                 </ul>
             </div>
             <div class="small-8 large-8 columns">
-                <a name="img12"></a>
+                <a name="img16"></a>
                 <img src="images/search_historic.png" alt="historic data"><br />
-                <span class="imgNote">[Image 12]. Historic data of a person.</span>
+                <span class="imgNote">[Image 16]. Historic data of a person.</span>
             </div>
         </div>
         <div class="large-12 small-12 columns">
             <h5 class='title cheaders'>3.5 Charts</h5>
             <hr class="chr">
-            <p class="panel callout radius">The section of the charts presents the statitstics of the information stored in system in a visual way, helping the employee to analyze and understand the data more easily. However, not all the users have access to this module, it depends on the admin which users are permitted to obtain statistics. To know more about admin role please check <a href="#admin">Admin</a>.</p>
+            <p class="panel callout radius">The section of the charts presents the statitstics of the information stored in system in a visual way, helping the employee to analyze and understand the data more easily. However, not all the users have access to this module, it depends on the admin which users are permitted to obtain statistics. To know more about admin role please check <a href="#controlPanel">Admin</a>.</p>
         </div>
         <div class="large-2 small-3 panel columns">
             <p>To see the look of the page and the elements that contain click on <a id="chart_page_show">show</a>, or if you want to hide it click on <a id="chart_page_hide">hide</a>.</p>
         </div>
         <div id="chart_page" class="large-10 small-9 panel columns" style="display:none">
             <img src="images/chart_page.png" alt="chart screen"><br />
-            <span class="imgNote">[Image 13]. Chart page.</span>
+            <span class="imgNote">[Image 17]. Chart page.</span>
         </div>
         <section class="small-12 large-12 columns">
             <h6 class='title cheaders'>3.5.1 Generate Charts</h6>
@@ -237,21 +276,21 @@
         <div class="large-6 small-12 panel columns">
              <span class="important">Calls not found notification message.</span>
              <img src="images/charts_not_found.png" alt="chart information not found"><br />
-            <span class="imgNote">[Image 15]. Charts page - Notification message: calls not found for the range of dates.</span>
+            <span class="imgNote">[Image 19]. Charts page - Notification message: calls not found for the range of dates.</span>
         </div>
         <div class="large-12 small-12 panel columns">
             <a id="img16"></a>
              <p><span class="important">Statistics - general information.</span></p>
              <p>Besides showing the message, a section of general information is created. This section contains a summary of the charts, for example, the total number of calls, how many people called, diversity of topics, etc.</p>
              <img src="images/charts_general.png" alt="chart general information"><br />
-            <span class="imgNote">[Image 16]. Charts page - Statistics - General information.</span>
+            <span class="imgNote">[Image 20]. Charts page - Statistics - General information.</span>
         </div>
         <div class="large-12 small-12 panel columns">
             <a id="img17"></a>
              <p><span class="important">Statistics - charts.</span></p>
              <p>The first chart shows in which days there were calls registered and how many. After the first one, three more charts are presented: the chart on the left represents the frequency of the topics or subject treated during the calls, similar to the chart on the middle, represents how many calls were registered during the morning or afternoon news program. Finally, the chart on the right shows the ratio between a positive or a negative comment evaluation.</p>
              <img src="images/charts_charts.png" alt="chart screen"><br />
-            <span class="imgNote">[Image 16]. Charts page - charts.</span>
+            <span class="imgNote">[Image 21]. Charts page - charts.</span>
         </div>
 
         <div class="large-12 small-12 columns">
@@ -261,6 +300,20 @@
                 <video controls>
                     <source src="videos/charts_final.mp4" type="video/mp4">
                 </video>
+            </div>
+        </div>
+        <!--Control panel -->
+        <div class="large-12 small-12 columns">
+        <a id="controlPanel"></a> 
+            <h5 class='title cheaders'>3.6 Control Panel</h5>
+            <hr class="chr">
+            <div class="panel callout radius">
+                <p>The module can be only accessed by the administrator of the system. The module consists on administrative operations like: .</p>
+                <ul>
+                    <li>Create, assign, delete roles for the different employees</li>
+                    <li>Create, update, delete and check categories (used in the registration of the call)</li>
+                </ul>
+                <p><span class="important">Note: </span> the default administrator account is, username: <span class="important">Administrator</span> and password:  <span class="important">Administrator</span>.</p>
             </div>
         </div>
         <footer class="large-12 columns cfooter">
