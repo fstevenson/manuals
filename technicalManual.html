@@ -875,6 +875,14 @@ series: [{
                <div class="small-12 large-12 columns"> 
                 <h6 class="cheaders">8.6.1 Control Panel - List of Roles</h6>
                 <hr class="chr">
+                <p class="panel callout radius">
+
+                  The first parametExplanationeter represents a controller will be called
+                  The third parameter is new AjaxOptin containing the following <br />
+                  <a class="command">HttpMethod: </a> It is set to Get because in this case the situation is response. <br />
+                  <a class="command">UpdateTargetId: </a> It refers to div tag, that is available at the end of Board View Page, which data will be displyed inside it<br />
+                  <a class="command">InsertionMode: </a> Its task is to determine the way, which are replace, insertAfter or insertBefore,  of insert response into the target element. For example, in this code, the option is replace.<br />
+                </p>
                   <div class="small-12 large-12 columns">
                     <div class="small-12 large-6 columns">
                       <div class="panel">
@@ -911,6 +919,7 @@ series: [{
                 <div class="small-12 large-12 columns"> 
                   <h6 class="cheaders">8.6.2 Control Panel - Add roles</h6>
                   <hr class="chr">
+                  <p class="panel callout radius">The admin types a username in the TexBox and choose the right permission for this users from dropDownBox. After the Save is hitted, the code verifies if the user has been assigned this role beforhand by "IsUserInRole", if not an error message will be displayed as shown underneath.</p>
                   <div class="small-12 large-12 columns">
                     <div class="small-12 large-6 columns">
                       <div class="panel">
@@ -952,6 +961,7 @@ public ActionResult RoleAddToUser(string RoleName, string UserName)
                 <div class="small-12 large-12 columns"> 
                   <h6 class="cheaders">8.6.3 Control Panel - Get roles</h6>
                   <hr class="chr">
+                  <p class="panel callout radius">As it can be seen from the code, first of all, a none white test should be tested by IsNullOrWhiteSpace inside GetRoles. If it returns false the data will be displayed.  </p> 
                   <div class="small-12 large-12 columns">
                     <div class="small-12 large-6 columns">
                       <div class="panel">
@@ -987,6 +997,7 @@ public ActionResult GetRoles(string UserName)
                 <div class="small-12 large-12 columns"> 
                   <h6 class="cheaders">8.6.4 Control Panel - Delete roles</h6>
                   <hr class="chr">
+                  <p class="panel callout radius">In this section, the function verfies whether the user has a certain role which is choosen from dropDownBox. If the use has this role a confirmation message will be displayed, otherwise, an error message will be displayed </p> 
                   <div class="small-12 large-12 columns">
                     <div class="small-12 large-6 columns">
                       <div class="panel">
@@ -1025,8 +1036,166 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
                       </div> <!--panel-->
                     </div> <!-- charts -->
                   </div><!-- row-->
+                  <span class="important">Note: the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, and the view "create.cshtml" found at: /Views/Account/RoleAddToUser.cshtml.</span>
                 </div><!--8.6.4-->
             </div>
+            <div class="small-12 large-12 columns"> <!-- control panel -->
+              <h5 class="cheaders">8.7 Category</h5>
+              <hr class="chr">
+              <p class="panel callout radius">MISSING The main flow of actions for this module can be found in the diagram <a href="#chartsFlow">charts</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve calls information for the specified range of dates, generation of charts. Use of JQuery-UI to use calendar for the dates.</p>
+              <!-- 8.7.1 check history -->
+               <div class="small-12 large-12 columns"> 
+                <h6 class="cheaders">8.7.1 Category - Add a new category</h6>
+                <hr class="chr">
+                <p class="panel callout radius">Add a new category, which is located on Board page, must be created by the Admin. After the category has been created, it will be redirected to Index of the categories</p>.
+                  <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">CategoryController (action: Create)</span>. 
+      <pre>
+        public ActionResult Create(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Categories.Add(category);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(category);
+        }
+      </pre>
+      <br/>
+                        <span class="imgNote"></span>
+                      </div> <!--panel-->
+                    </div> <!-- item -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Create a new category</span>.<br />
+                         <img src="images/createCategory.jpg" alt="code"><br /> 
+                        <span class="imgNote">Create Category.</span>
+
+                      </div> <!--panel-->
+
+                    </div> <!-- charts --> 
+
+                  </div><!-- row-->
+                  </div>
+                  <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "create.cshtml" found at: /Views/Category/create.cshtml.</span>
+                
+                  <div class="small-12 large-12 columns"> 
+                <h6 class="cheaders">8.7.2 Category - Delete a category</h6>
+                <hr class="chr">
+                <p class="panel callout radius">Delete a category, which is located on index of categories, must be deleted by the Admin. As it can be seen from the code, the function searches on the specfic category that will be deleted. Afterwards, the latest change is saved on the database </p>                  
+                <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">CategoryController (action: Delete)</span>.
+      <pre>
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [AuthorizeRedirect(Roles = "Admin")]
+        public ActionResult DeleteConfirmed(long id)
+        {
+            Category category = db.Categories.Find(id);
+            db.Categories.Remove(category);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+    </pre>
+    <br/>
+                        <span class="imgNote"></span>
+                      </div> <!--panel-->
+                    </div> <!-- item -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Delete a category</span>.<br />
+                         <img src="images/deleteCategory.jpg" alt="code"><br /> 
+                        <span class="imgNote">Delete Category.</span>
+                      </div> <!--panel-->
+                    </div> <!-- charts --> 
+                  </div><!-- row-->
+                <br />
+                      <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "delete.cshtml" found at: /Views/Category/delete.cshtml.</span>
+
+
+          <h6 class="cheaders">8.7.3 Category - Update a category</h6>
+                <hr class="chr">
+                <p class="panel callout radius">Update a category, which is located on index of categories, must be updated by the Admin. As it can be seen from the code, the category name record in database is updated by this "db.Entry(category).State = EntityState.Modified;", which is replaced a new name to the record instead of the old name </p>                  
+                <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">CategoryController (action: Edit)</span>.
+      <pre>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizeRedirect(Roles = "Admin")]
+        public ActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(category);
+        }
+    </pre>
+    <br/>
+                        <span class="imgNote"></span>
+                      </div> <!--panel-->
+                    </div> <!-- item -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Update a category</span>.<br />
+                         <img src="images/EditCategory.jpg" alt="code"><br /> 
+                        <span class="imgNote">Update Category.</span>
+                      </div> <!--panel-->
+                    </div> <!-- charts --> 
+                  </div><!-- row-->
+                <br />
+                      <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "Edit.cshtml" found at: /Views/Category/Edit.cshtml.</span>
+                <br />
+          <h6 class="cheaders">8.7.4 Category - Details of a category</h6>
+                <hr class="chr">
+                <p class="panel callout radius">Obtaining an information of a certain category must be done by the Admin. As it can be seen from the code, a category name will be found by Id. </p>                  
+                <div class="small-12 large-12 columns">
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">CategoryController (action: Details)</span>.
+      <pre>
+        [AuthorizeRedirect(Roles = "Admin")]
+        public ActionResult Details(long id = 0)
+        {
+            Category category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+    </pre>
+    <br/>
+                        <span class="imgNote"></span>
+                      </div> <!--panel-->
+                    </div> <!-- item -->
+                    <div class="small-12 large-6 columns">
+                      <div class="panel">
+                        <span class="important">Category Details</span>.<br />
+                         <img src="images/categoryDetails.jpg" alt="code"><br /> 
+                        <span class="imgNote">Category Details.</span>
+                      </div> <!--panel-->
+                    </div> <!-- charts --> 
+                  </div><!-- row-->
+                </div>
+                <br />
+                      <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "Edit.cshtml" found at: /Views/Category/Details.cshtml.</span>
           </div><!-- end implementation -->
           <div class="small-12 large-12 columns"> <!-- control panel -->
               <h5 class="cheaders">9. Discussion</h5>
