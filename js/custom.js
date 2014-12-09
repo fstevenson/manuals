@@ -70,6 +70,14 @@ $(document).ready(function () {
 		$('#responsive_design').hide();
 	});
 
+	$('#panel_page_show').on('click', function () {
+		$('#panel_page').show();
+	});
+
+	$('#panel_page_hide').on('click', function () {
+		$('#panel_page').hide();
+	});
+
 	String.prototype.escapeHTML = function () {                                        
 	  return(                                                                 
 	    this.replace(/>/g,'&gt;').
