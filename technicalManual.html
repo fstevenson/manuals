@@ -127,6 +127,72 @@ static CallContext()
               </ul>
             </blockquote>
             </div>
+            <div class="small-12 large-6 panel columns">
+              <img src="images/userroles.jpg" alt="custom database"><br />
+              <span class="imgNote">Entity relationship.</span>
+            </div>
+            <div class="small-12 large-6 panel columns">
+              
+<pre>
+      Basically, SimpleMembershipInitializer is a class extending ActionFilterAttribute. The latter is in order to insert the code into “ASP.NET MVC execution life cycle” (Ciliberti, 275). This class contains an overriding method called <a class="command">OnActionExecuting</a> and <a class="command">LazyInitializer.EnsureInitialized </a>, which inside the former method, is invoked to verify and guarantee that initializeSimpleMemberShipAttribute has been executed just once per application (Ciliberti, 275).
+      <ol>
+          <li>Database.SetInitializer<UsersContext>(null); this is to establish initialization scheme of a database for the UserContext class.</li>
+          <li>context.Database.Exists() is located inside try/catch block which is to ensure the database has been created.</li>
+          <li>WebSecurity.InitializeDatabaseConnection: it is a method is called at a start of the application. The purpose of this method as the following:</li>
+          <ul>
+              <li>Tests the membership database is available. In case of it isn’t available, membership tables are created.(Microsoft MSDN, 2014)</li>
+              <li>“Opens a connection to the user profile table and establishes a database relationship between the membership data and the user profile data” (Microsoft MSDN, 2014).</li>
+          </ul>
+        </ol>
+            Parameters of WebSecurity method are
+                <table>
+                    <tr>
+                        <th>Parameter name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>DefaultConnection</td>
+                        <td>String</td>
+                        <td>This refers to the connection string containing “user information”. DefaultConnection is the name of connectionstring created in WebConfig as shown in the below picture
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>UserProfile</td>
+                        <td>String</td>
+                        <td>Database table name involving user information</td>
+                    </tr>
+                    <tr>
+                        <td>UserId</td>
+                        <td>String</td>
+                        <td>This is a column name in database containing user IDs which are defined as an Integer.</td>
+                    </tr>
+                    <tr>
+                        <td>UserName</td>
+                        <td>String</td>
+                        <td>This is the column name in database containing user Names. The purpose of it is to verify “user profile data’’ matches “membership data account"</td>
+                    </tr>
+                    <tr>
+                        <td>autoCreateTables: true</td>
+                        <td>Boolean</td>
+                        <td>This is in order to create a membership tables. In case of it is not exist.</td>
+                    </tr>
+                </table>
+            <img id="addRef" src="images/ConnectionString.png" alt="connectionString"></img>
+            <br />
+    Finally, this class contains also an OnActionExecuting method which is executed each time the controller, which is associated with the initializeSimpleMemberShipAttribute, is invoked (Ciliberti, 275)
+</ul>
+              </pre>
+              <span class="imgNote">Entity Framework - migrations.</span>
+            </div>
+            <div class="small-12 large-12 columns">
+            <blockquote>References:
+              <ul>
+                <li>Ciliberti J. ASP.NET MVC 4 Recipes. Apress</li> 
+                <li>Microsoft MSDN, (2014). Initialize Database connection. [online] Available at: http://msdn.microsoft.com/en-us/library/webmatrix.webdata.websecurity.initializedatabaseconnection(v=vs.111).aspx</li> 
+              </ul>
+            </blockquote>
+            </div>
           </div>
           <div id="high" class="small-12 large-12 columns">
             <a id="high"></a>
@@ -314,6 +380,14 @@ static CallContext()
               <br />
               <p><span class="important">Note: </span> the code can be found in the controller "AuthorizeAttribute" can be found at: /controllers/AuthorizeAttribute.cs.</p>
             </div>
+            <div class="small-12 large-12 columns">
+              <a id="references"></a>
+              <hr class="chr">
+              <blockquote>References: 
+                <ul>
+                  <li>Msdn.microsoft.com. AuthorizeAttribute Class. [online] Available at: http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.onauthorization(v=vs.118).aspx </li>
+                </ul>
+            </div>
           </div>
           <!-- end authentication -->
           <!-- implementation section -->
@@ -330,9 +404,9 @@ static CallContext()
               <div class="panel callout radius">
                 <p>In case that the information has been entered correctly, the data will be stored in database by a WebSecurity.CreateUserAndAccount(model.UserName, model.Password) method and direct the user to Registration Page for call. Another important elements are:</p>
                 <ul>
-                  <li>[AllowAnnonymous]: It is an attribute</li>
-                  <li>[ValidateAntiForgeryToken]: It is an attribute used to "prevent forgery of a request"</li>
-                  <li>ModelState.IsValid: ModelSate "represents the state of an attempt to bind a poster form to an action method, which includes validation information. Where isValid gets a value determining if instance of this model-stat dictiornary is valid". For example, passing a string for a parameter which should be an integer.
+                  <li>[AllowAnnonymous]: It is an attribute determinig the controllers and actions "are skipped by AuthorizeAttribute during authorization" (Microsofr MSDN 1).</li>
+                  <li>[ValidateAntiForgeryToken]: It is an attribute used to "prevent forgery of a request" (Microsofr MSDN 2)</li>
+                  <li>ModelState.IsValid: ModelSate "represents the state of an attempt to bind a poster form to an action method, which includes validation information. Where isValid gets a value determining if instance of this model-stat dictiornary is valid" (Microsofr MSDN 3). For example, passing a string for a parameter which should be an integer.
                 </ul>
               </div>
               <div class="small-12 large-6 panel columns">
@@ -342,14 +416,29 @@ static CallContext()
               <div class="small-12 large-12 columns">
                <p><span class="important">Note: </span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, the model "AccountModels.cs" found at /Models/AccountModels and the view "register.cshtml" found at: /Views/Account/register.cshtml.</p>
               </div>
+              <div class="small-12 large-12 columns">
+              <a id="references"></a>
+              <hr class="chr">
+              <blockquote>References: 
+                <ul>
+                  <li>Microsoft MSDN 1. System.Web.Http [online] Available at: http://msdn.microsoft.com/en-us/library/system.web.http.allowanonymousattribute%28v=vs.118%29.aspx </li>
+                  <li>Microsoft MSDN 2. System.Web.MVC [online] Available at: http://msdn.microsoft.com/en-us/library/system.web.mvc.validateantiforgerytokenattribute%28v=vs.118%29.aspx </li>
+                  <li>Microsoft MSDN 3. Model State Class [online] Available at: http://msdn.microsoft.com/en-us/library/system.web.mvc.modelstate%28v=vs.118%29.aspx </li>
+                </ul>
             </div>
             <div class="small-12 large-12 columns"> <!-- login -->
               <h5 class="cheaders">8.2 Login</h5>
               <hr class="chr">
               <div class="panel callout radius">
-                <p>MISSING</p>
+                <p>In case username and password have been entered, the data will be matched in database by a WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe) method and direct the user to Registration Page for call. Another important elements are:</p>
               </div>
-              <p><span class="important">MISSING Note: </span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, the model "AccountModels.cs" found at /Models/AccountModels and the view "register.cshtml" found at: /Views/Account/register.cshtml.</p>
+              <div class="small-12 large-6 panel columns">
+                <img src="images/LoginCode.png" alt="authorize"><br />
+                <span class="imgNote">[Image 13]. Login Code.</span>
+              </div>
+              <div class="small-12 large-12 columns"
+                <p><span class="important">Note: </span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, the model "AccountModels.cs" found at /Models/AccountModels and the view "login.cshtml" found at: /Views/Account/login.cshtml.</p>
+              </div>
             </div>
             <div class="small-12 large-12 columns"> <!-- register a call -->
               <h5 class="cheaders">8.3 Register a call</h5>
@@ -1277,6 +1366,8 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
                   <li>Bibliography: Strumpflohner, J. (2014). Posting JSON Data to an ASP.net MVC 3 Web Application. [online] Juristr.com. Available at: http://juristr.com/blog/2011/08/posting-json-data-to-aspnet-mvc-3-web/ </li>
                   <li>Bibliography: Api.highcharts.com, (2014). Highcharts API Reference. [online] Available at: http://api.highcharts.com/highcharts</li>
                   <li>Bibliography: jquery.org, j. (2014). jQuery API Documentation. [online] Api.jquery.com. Available at: http://api.jquery.com/</li>
+                  <li>Ciliberti J. ASP.NET MVC 4 Recipes. Apress</li>
+                  <li>Palermo J., et al. ASP.NET MVC 4 IN ACTION.  [online] Available at: http://www.manning.com/palermo3/ASPMVC4samplech4.pdf</li>
                 </ul>
               <blockquote>
           </div>
