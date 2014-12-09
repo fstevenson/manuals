@@ -123,7 +123,8 @@ static CallContext()
             <blockquote>References:
               <ul>
                 <li>The Official Microsoft ASP.NET Site, (2014). Creating an Entity Framework Data Model. [online] Available at: http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application</li> 
-                <li>The Official Microsoft ASP.NET Site, (2014). Part 4: Models and Data Access. [online] Available at: http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-4</li> 
+                <li>The Official Microsoft ASP.NET Site, (2014). Part 4: Models and Data Access. [online] Available at: http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-4</li>
+                <li>Youtube.com, (2014).Simple Membership in ASP NET MVC 5 Web Applications [online] Available at: https://www.youtube.com/watch?v=BsKcVbsMn6w</li> 
               </ul>
             </blockquote>
             </div>
@@ -386,6 +387,7 @@ static CallContext()
               <blockquote>References: 
                 <ul>
                   <li>Msdn.microsoft.com. AuthorizeAttribute Class. [online] Available at: http://msdn.microsoft.com/en-us/library/system.web.mvc.authorizeattribute.onauthorization(v=vs.118).aspx </li>
+                  <li>stackoverflow.com. ASP.NET MVC - How to show unauthorized error on login page?. [online] Available at: http://stackoverflow.com/questions/1498727/asp-net-mvc-how-to-show-unauthorized-error-on-login-page
                 </ul>
             </div>
           </div>
@@ -1007,7 +1009,7 @@ series: [{
             <div class="small-12 large-12 columns"> <!-- control panel -->
               <h5 class="cheaders">8.6 Control Panel</h5>
               <hr class="chr">
-              <p class="panel callout radius">MISSING The main flow of actions for this module can be found in the diagram <a href="#chartsFlow">charts</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve calls information for the specified range of dates, generation of charts. Use of JQuery-UI to use calendar for the dates.</p>
+              <p class="panel callout radius">The main features of this component are: Autherisation (see section <a href="#authentication">Autherization</a> for more information); Dealing with roles. (see section <a href="#database">Database</a> for more information).</p>
               <!-- 8.4.1 check history -->
                <div class="small-12 large-12 columns"> 
                 <h6 class="cheaders">8.6.1 Control Panel - List of Roles</h6>
@@ -1175,11 +1177,20 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
                   </div><!-- row-->
                   <span class="important">Note:</span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, and the view "create.cshtml" found at: /Views/Account/RoleAddToUser.cshtml.
                 </div><!--8.6.4-->
+                <div class="small-12 large-12 columns">
+                  <a id="references"></a>
+                    <hr class="chr">
+                    <blockquote>References: 
+                      <ul>
+                        <li>dotnetfunda.com, (2014). Working with Roles in ASP.NET MVC 4+. [online] Available at: http://www.dotnetfunda.com/articles/show/2648/working-with-roles-in-aspnet-mvc-4 </li>
+                        <li>youtube.com, (2014). ASP.NET, ASP.NET MVC, RoleManagement, Membership Beginner. [online] Available at: https://www.youtube.com/watch?v=4TsRsgiU5tA </li>   
+                      </ul>
+                    </blockquote>
+                </div>
             </div>
             <div class="small-12 large-12 columns"> <!-- control panel -->
               <h5 class="cheaders">8.7 Category</h5>
               <hr class="chr">
-              <p class="panel callout radius">MISSING The main flow of actions for this module can be found in the diagram <a href="#chartsFlow">charts</a>. The main features of this component are: Validation (see section <a href="#validation">Validation</a> for more information); Ajax communication to retrieve calls information for the specified range of dates, generation of charts. Use of JQuery-UI to use calendar for the dates.</p>
               <!-- 8.7.1 check history -->
                <div class="small-12 large-12 columns"> 
                 <h6 class="cheaders">8.7.1 Category - Add a new category</h6>
