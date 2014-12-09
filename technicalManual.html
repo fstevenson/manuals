@@ -35,8 +35,10 @@
             <dd data-magellan-arrival="high"><a href="#high">High level design</a></dd>
             <dd data-magellan-arrival="user_interface"><a href="#user_interface">User Interface design</a></dd>
             <dd data-magellan-arrival="validation"><a href="#validation">Validation</a></dd>
-            <dd data-magellan-arrival="authentication"><a href="#authentication">Authentication</a></dd>
+            <dd data-magellan-arrival="authentication"><a href="#authentication">Authorization</a></dd>
             <dd data-magellan-arrival="implementation"><a href="#implementation">Implementation</a></dd>
+            <dd data-magellan-arrival="discussion"><a href="#discussion">Discussion</a></dd>
+            <dd data-magellan-arrival="references"><a href="#references">References</a></dd>
           </dl>
         </div>
          <section class="large-12 small-12 columns">
@@ -53,8 +55,10 @@
               <li><a href="#high">4. High level design</a></li>
               <li><a href="#user_interface">5. User interface design</a></li>
               <li><a href="#validation">6. Validation</a></li>
-              <li><a href="#authentication">7. Authentication</a></li>
+              <li><a href="#authentication">7. Authorization</a></li>
               <li><a href="#implementation">8. Implementation</a></li>
+              <li><a href="#discussion">9. Discussion</a></li>
+              <li><a href="#references">10. References</a></li>
             </ul>
           </div>
           <div id="overview">
@@ -78,17 +82,53 @@
             </ul>
             <br />
             <p>The next diagram shows how the application is separated in layers, the comunication among components and the contents of each one.</p>
+            <a id="image1"></a>
             <img src="images/architecture.png" alt="architecture"><br />
             <span class="imgNote">[Image 1]. Architecture of the system.</span>
-            <blockquote>References: <a href="http://msdn.microsoft.com/en-us/library/dd381412%28v=vs.108%29.aspx"> ASP.NET MVC Overview</a>, <a href="http://stackoverflow.com/questions/102558/biggest-advantage-to-using-asp-net-mvc-vs-web-forms"> ASP.NET MVC advantages</a>, Pro ASP.NET MVC 4 (Professional Apress) 4th. Apress Berkely, CA, USA ©2013. ISBN:1430242361 9781430242369</blockquote>
+            <blockquote>References: 
+            <ul>
+              <li>Msdn.microsoft.com, (2014). ASP.NET MVC Overview. [online] Available at: http://msdn.microsoft.com/en-us/library/dd381412%28v=vs.108%29.aspx </li>
+              <li>forms, B. (2014). Biggest advantage to using ASP.Net MVC vs web forms. [online] Stackoverflow.com. Available at: http://stackoverflow.com/questions/102558/biggest-advantage-to-using-asp-net-mvc-vs-web-forms</li>
+              <li>Pro ASP.NET MVC 4 (Professional Apress) 4th. Apress Berkely, CA, USA ©2013. ISBN:1430242361 9781430242369</li>
+            </ul>
+            <blockquote>
           </div>
           <div id="database">
             <a id="database"></a>
             <h4 data-magellan-destination="database" class="cheaders">3. Database design</h4>
             <hr class="chr">
-            <p>Two databases are used in the system, one is the default database used for users and roles; the other was designed specifically for the system. The next diagram shows the design of the databases and both are linked.</p>
+            <div class="panel callout radius">
+              <p>Two databases are used in the system, one is the default-system database used for users and roles; the other was designed specifically for the system. The next diagram shows the design of the databases.</p>
+            </div>
+            <div class="small-12 large-6 panel columns">
+              <img src="images/custom_database.png" alt="custom database"><br />
+              <span class="imgNote">Entity relationship.</span>
+            </div>
+            <div class="small-12 large-6 panel columns">
+              <p>The structure of the database was defined in the models (See <a href="#image1">Image 1</a>), in order to use the Entity Framework Data Model for ASP.NET MVC, the class can be found at <span class="imgNote">"/DAL/CallContext.cs", the script to generate the tables can be found at: <span class="imgNote"> "Migrations/201411142345057_InitialCreate.cs"</span>. CallContext.cs:</p>
+              <pre>
+public DbSet<Call> Calls { get; set; }
+public DbSet<Employee> Employees { get; set; }
+public DbSet<Person> Persons { get; set; }
+public DbSet<Category> Categories { get; set; }
+
+static CallContext()
+{
+    Database.SetInitializer<CallContext>(null);
+}
+              </pre>
+              <span class="imgNote">Entity Framework - migrations.</span>
+            </div>
+            <div class="small-12 large-12 columns">
+            <blockquote>References:
+              <ul>
+                <li>The Official Microsoft ASP.NET Site, (2014). Creating an Entity Framework Data Model. [online] Available at: http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application</li> 
+                <li>The Official Microsoft ASP.NET Site, (2014). Part 4: Models and Data Access. [online] Available at: http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-4</li> 
+              </ul>
+            </blockquote>
+            </div>
           </div>
-          <div id="high">
+          <div id="high" class="small-12 large-12 columns">
             <a id="high"></a>
             <h4 data-magellan-destination="high" class="cheaders">4. High level design</h4>
             <hr class="chr">
@@ -200,7 +240,12 @@
               </div>
             </div>
             <div class="large-12 small-12 columns">
-              <blockquote>References: <a href="http://foundation.zurb.com/docs/"> Foundation Documentation</a>, <a href="http://ami.responsivedesign.is/"> Am I responsive?</a></blockquote>
+              <blockquote>References: 
+                <ul>
+                  <li>ZURB, i. (2014). Getting Started | Foundation Docs. [online] Foundation.zurb.com. Available at: http://foundation.zurb.com/docs/ </li>
+                  <li>Ami.responsivedesign.is, (2014). Am I Responsive?. [online] Available at: http://ami.responsivedesign.is/ </li>
+                </ul>
+              </blockquote>
             </div>
             <!-- end Responsive -->
           </div> <!-- end user interface -->
@@ -246,7 +291,8 @@
               <ul>
                 <li>Model Registration.cs <span class="imgNote">(code in "/Models/Registration.cs")</span> / View: Call/Register <span class="imgNote">(code in "/Views/Call/Register.cshtml")</span>.</li>
                 <li>Model Search.cs <span class="imgNote">(code in "/Models/Search.cs")</span> / View: Person/Search <span class="imgNote">(code in "/Views/Person/Search.cshtml")</span>.</li>
-                <li>Model Chart.cs <span class="imgNote">(code in "/Models/Chart.cs")</span> / View: Chart/Index <span class="imgNote">(code in "/Views/Chart/Index.cshtml")</span>.</li>
+                <li>Model Chart.cs <span class="imgNote">(code in "/Models/Chart.cs")</span> / View: Account/Login, Account/Register <span class="imgNote">(code in "/Views/Account/Login.cshtml", "/Views/Account/Register.cshtml")</span>.</li>
+                <li>Model AccountModels.cs <span class="imgNote">(code in "/Models/AccountModels.cs")</span> / View: Chart/Index <span class="imgNote">(code in "/Views/Chart/Index.cshtml")</span>.</li>
               </ul>
             </div>
           </div><!-- End validation -->
@@ -293,7 +339,9 @@
                 <img src="images/RegistrationCode.jpg" alt="authorize"><br />
                 <span class="imgNote">[Image 12]. Registration Code.</span>
               </div>
-              <p><span class="important">Note: </span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, the model "AccountModels.cs" found at /Models/AccountModels and the view "register.cshtml" found at: /Views/Account/register.cshtml.</p>
+              <div class="small-12 large-12 columns">
+               <p><span class="important">Note: </span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, the model "AccountModels.cs" found at /Models/AccountModels and the view "register.cshtml" found at: /Views/Account/register.cshtml.</p>
+              </div>
             </div>
             <div class="small-12 large-12 columns"> <!-- login -->
               <h5 class="cheaders">8.2 Login</h5>
@@ -1036,7 +1084,7 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
                       </div> <!--panel-->
                     </div> <!-- charts -->
                   </div><!-- row-->
-                  <span class="important">Note: the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, and the view "create.cshtml" found at: /Views/Account/RoleAddToUser.cshtml.</span>
+                  <span class="important">Note:</span> the code can be found in the controller "AccountController" can be found at: /controllers/AccountController.cs, and the view "create.cshtml" found at: /Views/Account/RoleAddToUser.cshtml.
                 </div><!--8.6.4-->
             </div>
             <div class="small-12 large-12 columns"> <!-- control panel -->
@@ -1081,7 +1129,7 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
 
                   </div><!-- row-->
                   </div>
-                  <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "create.cshtml" found at: /Views/Category/create.cshtml.</span>
+                  <span class="important">Note:</span> the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "create.cshtml" found at: /Views/Category/create.cshtml.
                 
                   <div class="small-12 large-12 columns"> 
                 <h6 class="cheaders">8.7.2 Category - Delete a category</h6>
@@ -1122,7 +1170,7 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
                     </div> <!-- charts --> 
                   </div><!-- row-->
                 <br />
-                      <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "delete.cshtml" found at: /Views/Category/delete.cshtml.</span>
+                      <span class="important">Note:</span> the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "delete.cshtml" found at: /Views/Category/delete.cshtml.
 
 
           <h6 class="cheaders">8.7.3 Category - Update a category</h6>
@@ -1160,7 +1208,7 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
                     </div> <!-- charts --> 
                   </div><!-- row-->
                 <br />
-                      <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "Edit.cshtml" found at: /Views/Category/Edit.cshtml.</span>
+                      <span class="important">Note:</span> the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "Edit.cshtml" found at: /Views/Category/Edit.cshtml.
                 <br />
           <h6 class="cheaders">8.7.4 Category - Details of a category</h6>
                 <hr class="chr">
@@ -1195,16 +1243,42 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
                   </div><!-- row-->
                 </div>
                 <br />
-                      <span class="important">Note: the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "Edit.cshtml" found at: /Views/Category/Details.cshtml.</span>
+                      <span class="important">Note:</span> the code can be found in the controller "CategoryController" can be found at: /controllers/CategoryController.cs, the model "CategoryModel.cs" found at />Models/CategoryModel and the view "Edit.cshtml" found at: /Views/Category/Details.cshtml.
           </div><!-- end implementation -->
-          <div class="small-12 large-12 columns"> <!-- control panel -->
-              <h5 class="cheaders">9. Discussion</h5>
-              <hr class="chr">
+          <!-- Discussion -->
+          <div class="small-12 large-12 columns"> 
+            <a id="discussion"></a>
+            <h4 data-magellan-destination="discussion" class="cheaders">9. Discussion</h4>
+            <hr class="chr">
+            <p>Before defining the scope and the objective of the project we defined that we were going to use ASP.NET MVC because its a technology that is very used in the work-market and it was something new for both of us. It was not only important to learn a new language, but also a new design pattern like MVC. One of the advantages of MVC is that a system can be divided in different layers. For example, the model define the business logic of an application, while the responsability of the View is to render anything that the application needs to create a great experience to the user. Finally, the controller "asks the model which data to be shown, then it passes the data to the view"; MVC facilitates to have a more organized and clean project.</p>
+            <p>However, if there is a comparision between ASP.NET Web forms against ASP.NET MVC, ASP.NET MVC its a technology that requires a lot of time to understand and to learn, while WebForms are easier to learn and allow a quick development of an application. Nevertheless, the intention we had as a team was to learn a little bit about a new technology that is widely used and it would help us to have an overview about the things we can achieve.</p>
+            <p>After defining that the best option was ASP.NET MVC (also because was going to be technology to learn in the lectures) we defined which technologies could help us to create a rich user experience to help him to complete his task. </p>
+            <p>With this in mind and imagining our system in a real work environment we decided that there must some kind of authentication and authorization, even that the system can be on an intranet, not all the employees should have access, so we decided to implement an this feature using as base what ASP.NET MVC offers out of the box, having an admin role which is the responsible to grant access, create, update or delete users, among other functions.</p>
+            <p>Also, it was important to create a system where the user could access as much information as possible on the same, with the idea to avoid the waste of time in navigation among the system. For that reason, during the registration of the call many information is showed to the user, using different technologies as: JQuery, Ajax, Json</p>
+            <p>Same technologies were used to implement the search and charts module. However, when designing the charts module we thought in the idea to provide a system that allow a company to review, analyze the information stored in the database, for that reason we decided to create some charts that demostrated the data in a more visual way.</p>
+            <p>The use of libraries was easy to set up and use for ASP.NET MVC, in fact, at some point we found that the Foundation Framework also provides a port of foundation for ASP.NET MVC (3-5) <span class="imgNote">(http://responsivemvc.azurewebsites.net//Foundation)</span>. Another important feature provided by ASP.NET MVC was the Entity Framework which helps you to set up a database in a quick and smooth way. </p>
+            <p>As conclusion, </p>
           </div>
-          <div class="small-12 large-12 columns"> <!-- control panel -->
-              <h5 class="cheaders">10. References</h5>
+          <!-- References -->
+          <div class="small-12 large-12 columns">
+          <a id="references"></a>
+              <h4 data-magellan-destination="references" class="cheaders">10. References</h4>
               <hr class="chr">
-              <blockquote>Example</blockquote>
+              <blockquote>References: 
+                <ul>
+                  <li>Bibliography: Msdn.microsoft.com, (2014). ASP.NET MVC Overview. [online] Available at: http://msdn.microsoft.com/en-us/library/dd381412%28v=vs.108%29.aspx </li>
+                  <li>Bibliography: forms, B. (2014). Biggest advantage to using ASP.Net MVC vs web forms. [online] Stackoverflow.com. Available at: http://stackoverflow.com/questions/102558/biggest-advantage-to-using-asp-net-mvc-vs-web-forms</li>
+                  <li>Pro ASP.NET MVC 4 (Professional Apress) 4th. Apress Berkely, CA, USA ©2013. ISBN:1430242361 9781430242369</li>
+                  <li>Bibliography: The Official Microsoft ASP.NET Site, (2014). Creating an Entity Framework Data Model. [online] Available at: http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application</li> 
+                  <li>Bibliography: The Official Microsoft ASP.NET Site, (2014). Part 4: Models and Data Access. [online] Available at: http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-4</li>
+                  <li>Bibliography: ZURB, i. (2014). Getting Started | Foundation Docs. [online] Foundation.zurb.com. Available at: http://foundation.zurb.com/docs/ </li>
+                  <li>Bibliography: Ami.responsivedesign.is, (2014). Am I Responsive?. [online] Available at: http://ami.responsivedesign.is/ </li>
+                  <li>Bibliography: pattern, T. (2014). The Model-View-Controller architecture pattern from the Course ASP.NET MVC 4 Essential Training. [online] lynda.com. Available at: http://www.lynda.com/ASPNET-tutorials/Model-View-Controller-architecture-pattern/109762/120280-4.html </li>
+                  <li>Bibliography: Strumpflohner, J. (2014). Posting JSON Data to an ASP.net MVC 3 Web Application. [online] Juristr.com. Available at: http://juristr.com/blog/2011/08/posting-json-data-to-aspnet-mvc-3-web/ </li>
+                  <li>Bibliography: Api.highcharts.com, (2014). Highcharts API Reference. [online] Available at: http://api.highcharts.com/highcharts</li>
+                  <li>Bibliography: jquery.org, j. (2014). jQuery API Documentation. [online] Api.jquery.com. Available at: http://api.jquery.com/</li>
+                </ul>
+              <blockquote>
           </div>
         </section>
 
