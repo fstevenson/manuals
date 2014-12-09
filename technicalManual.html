@@ -123,8 +123,7 @@ static CallContext()
             <blockquote>References:
               <ul>
                 <li>The Official Microsoft ASP.NET Site, (2014). Creating an Entity Framework Data Model. [online] Available at: http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application</li> 
-                <li>The Official Microsoft ASP.NET Site, (2014). Part 4: Models and Data Access. [online] Available at: http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-4</li>
-                <li>Youtube.com, (2014).Simple Membership in ASP NET MVC 5 Web Applications [online] Available at: https://www.youtube.com/watch?v=BsKcVbsMn6w</li> 
+                <li>The Official Microsoft ASP.NET Site, (2014). Part 4: Models and Data Access. [online] Available at: http://www.asp.net/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-4</li> 
               </ul>
             </blockquote>
             </div>
@@ -191,6 +190,7 @@ static CallContext()
               <ul>
                 <li>Ciliberti J. ASP.NET MVC 4 Recipes. Apress</li> 
                 <li>Microsoft MSDN, (2014). Initialize Database connection. [online] Available at: http://msdn.microsoft.com/en-us/library/webmatrix.webdata.websecurity.initializedatabaseconnection(v=vs.111).aspx</li> 
+                <li>Youtube.com, (2014).Simple Membership in ASP NET MVC 5 Web Applications [online] Available at: https://www.youtube.com/watch?v=BsKcVbsMn6w</li>
               </ul>
             </blockquote>
             </div>
@@ -432,7 +432,7 @@ static CallContext()
               <h5 class="cheaders">8.2 Login</h5>
               <hr class="chr">
               <div class="panel callout radius">
-                <p>In case username and password have been entered, the data will be matched in database by a WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe) method and direct the user to Registration Page for call. Another important elements are:</p>
+                <p>In case username and password have been entered, the data will be matched with database records by a WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe) method and redirect a user to Registration Page for call. Another important elements are:</p>
               </div>
               <div class="small-12 large-6 panel columns">
                 <img src="images/LoginCode.png" alt="authorize"><br />
@@ -1016,8 +1016,9 @@ series: [{
                 <hr class="chr">
                 <p class="panel callout radius">
 
-                  The first parametExplanationeter represents a controller will be called
-                  The third parameter is new AjaxOptin containing the following <br />
+                  The first paremeter is a name of the link <br />
+                  The second parameter is a controller will be called <br />
+                  The  parameter is new AjaxOptin containing the following <br />
                   <a class="command">HttpMethod: </a> It is set to Get because in this case the situation is response. <br />
                   <a class="command">UpdateTargetId: </a> It refers to div tag, that is available at the end of Board View Page, which data will be displyed inside it<br />
                   <a class="command">InsertionMode: </a> Its task is to determine the way, which are replace, insertAfter or insertBefore,  of insert response into the target element. For example, in this code, the option is replace.<br />
@@ -1058,7 +1059,7 @@ series: [{
                 <div class="small-12 large-12 columns"> 
                   <h6 class="cheaders">8.6.2 Control Panel - Add roles</h6>
                   <hr class="chr">
-                  <p class="panel callout radius">The admin types a username in the TexBox and choose the right permission for this users from dropDownBox. After the Save is hitted, the code verifies if the user has been assigned this role beforhand by "IsUserInRole", if not an error message will be displayed as shown underneath.</p>
+                  <p class="panel callout radius">The admin types a username in the TextBox and choose the right permission for this user from dropDownBox. After the Save is hitted, the code verifies if the user has been assigned this role beforhand by "IsUserInRole", if not an error message will be displayed as shown underneath.</p>
                   <div class="small-12 large-12 columns">
                     <div class="small-12 large-6 columns">
                       <div class="panel">
@@ -1100,7 +1101,7 @@ public ActionResult RoleAddToUser(string RoleName, string UserName)
                 <div class="small-12 large-12 columns"> 
                   <h6 class="cheaders">8.6.3 Control Panel - Get roles</h6>
                   <hr class="chr">
-                  <p class="panel callout radius">As it can be seen from the code, first of all, a none white test should be tested by IsNullOrWhiteSpace inside GetRoles. If it returns false the data will be displayed.  </p> 
+                  <p class="panel callout radius">As it can be seen from the code, first of all, a none white space should be tested by IsNullOrWhiteSpace inside GetRoles. If it returns false the data will be displayed.  </p> 
                   <div class="small-12 large-12 columns">
                     <div class="small-12 large-6 columns">
                       <div class="panel">
@@ -1353,7 +1354,7 @@ public ActionResult DeleteRoleForUser(string UserName, string RoleName)
             <p>Before defining the scope and the objective of the project we defined that we were going to use ASP.NET MVC because its a technology that is very used in the work-market and it was something new for both of us. It was not only important to learn a new language, but also a new design pattern like MVC. One of the advantages of MVC is that a system can be divided in different layers. For example, the model define the business logic of an application, while the responsability of the View is to render anything that the application needs to create a great experience to the user. Finally, the controller "asks the model which data to be shown, then it passes the data to the view"; MVC facilitates to have a more organized and clean project.</p>
             <p>However, if there is a comparision between ASP.NET Web forms against ASP.NET MVC, ASP.NET MVC its a technology that requires a lot of time to understand and to learn, while WebForms are easier to learn and allow a quick development of an application. Nevertheless, the intention we had as a team was to learn a little bit about a new technology that is widely used and it would help us to have an overview about the things we can achieve.</p>
             <p>After defining that the best option was ASP.NET MVC (also because was going to be technology to learn in the lectures) we defined which technologies could help us to create a rich user experience to help him to complete his task. </p>
-            <p>With this in mind and imagining our system in a real work environment we decided that there must some kind of authentication and authorization, even that the system can be on an intranet, not all the employees should have access, so we decided to implement an this feature using as base what ASP.NET MVC offers out of the box, having an admin role which is the responsible to grant access, create, update or delete users, among other functions.</p>
+            <p>With this in mind and imagining our system in a real work environment we decided that there must some kind of authentication which "is a process, providing a user ability to access a certain service, based on user's username and password) and authorization which is (a process to specify whether the user has a permission (granting or deny) to access a certain resource. For example, Admin of this project has some roles are completely different from other users, such as, the Admin is able to assign roles to others otherwise users do not have this role), even that the system can be on an intranet, not all the employees should have access, so we decided to implement an this feature using as base what ASP.NET MVC offers out of the box, having an admin role which is the responsible to grant access, create, update or delete users, among other functions.</p>
             <p>Also, it was important to create a system where the user could access as much information as possible on the same, with the idea to avoid the waste of time in navigation among the system. For that reason, during the registration of the call many information is showed to the user, using different technologies as: JQuery, Ajax, Json</p>
             <p>Same technologies were used to implement the search and charts module. However, when designing the charts module we thought in the idea to provide a system that allow a company to review, analyze the information stored in the database, for that reason we decided to create some charts that demostrated the data in a more visual way.</p>
             <p>The use of libraries was easy to set up and use for ASP.NET MVC, in fact, at some point we found that the Foundation Framework also provides a port of foundation for ASP.NET MVC (3-5) <span class="imgNote">(http://responsivemvc.azurewebsites.net//Foundation)</span>. Another important feature provided by ASP.NET MVC was the Entity Framework which helps you to set up a database in a quick and smooth way. </p>
